@@ -1,6 +1,7 @@
 ﻿using AppAny.HotChocolate.FluentValidation;
 using HotChocolate.AspNetCore;
 using HotChocolate.Execution.Configuration;
+using HotChocolate.Types.Descriptors;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
@@ -18,6 +19,7 @@ public static class GraphQlSetup
             .DisableIntrospection(false)
             .AddErrorFilter<GraphQlErrorFilter>()
             .AddFluentValidation()
+            .AddConvention<INamingConventions>(new ApplicationNamingConvention())
             ;
 
         return requestExecutorBuilder;
