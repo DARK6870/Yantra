@@ -56,6 +56,6 @@ public class GraphQlErrorFilter(ILogger<GraphQlErrorFilter> logger) : IErrorFilt
         errorBuilder
             .SetMessage("Invalid data input")
             .SetCode("INVALID_INPUT")
-            .SetExtension("errors", validationException.Errors);
+            .SetExtension("validationErrors", validationException.Errors);
     }
 }
