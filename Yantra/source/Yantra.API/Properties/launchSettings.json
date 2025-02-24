@@ -4,7 +4,7 @@
     "Hosting": {
       "commandName": "Project",
       "dotnetRunMessages": true,
-      "launchBrowser": true,
+      "launchBrowser": false,
       "launchUrl": "graphql/ui",
       "applicationUrl": "http://localhost:5000",
       "environmentVariables": {
