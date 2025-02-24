@@ -21,6 +21,7 @@ services
     .AddConfiguration(configuration)
     .AddMongoDb(configuration)
     .AddRepositories()
+    .AddLoggingBehavior()
     .AddServices()
     .AddGraphQLServer()
     .ConfigureGraphQl()
