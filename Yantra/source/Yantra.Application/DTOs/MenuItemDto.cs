@@ -11,9 +11,9 @@ public record MenuItemDto(
     Decimal Price
 )
 {
-    public MenuItem MapToMenuItem()
+    public MenuItem MapToMenuItem(string? id = null)
     {
-        return new MenuItem
+        var menuItem = new MenuItem
         {
             Name = Name,
             Description = Description,
@@ -21,5 +21,10 @@ public record MenuItemDto(
             Type = Type,
             Price = Price
         };
+
+        if (id != null)
+            menuItem.Id = id;
+
+        return menuItem;
     }
 }
