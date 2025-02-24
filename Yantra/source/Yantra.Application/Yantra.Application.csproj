@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <ItemGroup>
+      <ProjectReference Include="..\Yantra.Infrastructure\Yantra.Infrastructure.csproj" />
+      <ProjectReference Include="..\Yantra.Mongo\Yantra.Mongo.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="FluentValidation" />
+      <PackageReference Include="FluentValidation.DependencyInjectionExtensions" />
+      <PackageReference Include="HotChocolate.Abstractions" />
+      <PackageReference Include="MediatR" />
+      <PackageReference Include="Serilog.AspNetCore" />
+    </ItemGroup>
+
+</Project>

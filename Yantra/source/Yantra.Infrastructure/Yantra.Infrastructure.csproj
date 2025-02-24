@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <ItemGroup>
+      <PackageReference Include="FluentValidation.AspNetCore" />
+      <PackageReference Include="HotChocolate" />
+      <PackageReference Include="HotChocolate.AspNetCore" />
+      <PackageReference Include="HotChocolate.Data" />
+      <PackageReference Include="MediatR" />
+      <PackageReference Include="Microsoft.AspNetCore.Routing" />
+      <PackageReference Include="Microsoft.Extensions.DependencyInjection" />
+      <PackageReference Include="MongoDB.Driver" />
+      <PackageReference Include="Serilog.AspNetCore" />
+    </ItemGroup>
+
+</Project>
