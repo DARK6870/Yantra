@@ -11,19 +11,19 @@ public class LoggingBehavior<TRequest, TResponse>(
     public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next,
         CancellationToken cancellationToken)
     {
-        logger.LogDebug("Starting request: {request}", typeof(TRequest).Name);
+        logger.LogDebug("Handling request: {RequestType}\nRequest: {@Request}", typeof(TRequest).Name, request);
 
         try
         {
             var response = await next();
             
-            logger.LogDebug("Completed request: {request}", typeof(TRequest).Name);
+            logger.LogDebug("Request {RequestType} proceed successfully", typeof(TRequest).Name);
             
             return response;
         }
         catch (Exception ex)
         {
-            logger.LogError(ex, "Request {request} failed.", typeof(TRequest).Name);
+            logger.LogError(ex, "Request {RequestType} failed.\nRequest: {@Request}", typeof(TRequest).Name, request);
             throw;
         }
     }

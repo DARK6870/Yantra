@@ -1,43 +1,35 @@
 ﻿using FluentValidation;
-using Microsoft.Extensions.Logging;
 using Yantra.Infrastructure.Exceptions;
 
 namespace Yantra.Infrastructure.GraphQl;
 
-public class GraphQlErrorFilter(ILogger<GraphQlErrorFilter> logger) : IErrorFilter
+public class GraphQlErrorFilter : IErrorFilter
 {
     public IError OnError(IError error)
     {
-        logger.LogError(
-            "An error occured while processing request. Message: {message}",
-            error.Exception?.InnerException?.Message
-            ?? error.Exception?.Message
-            ?? error.Message
-        );
-        
         return GetErrorResponse(error);
     }
 
-    private IError GetErrorResponse(IError error)
+    private static IError GetErrorResponse(IError error)
     {
-        IErrorBuilder errorBuilder = ErrorBuilder
+        var errorBuilder = ErrorBuilder
             .FromError(error)
             .ClearExtensions()
             .ClearLocations();
         
-        if (error.Exception is ApiErrorException apiErrorException)
+        switch (error.Exception)
         {
-            HandleApiErrorException(errorBuilder, apiErrorException);
-        }
-        else if (error.Exception is ValidationException validationException)
-        {
-            HandleValidationException(errorBuilder, validationException);
-        }
-        else
-        {
-            errorBuilder
-                .SetMessage("An error occured while processing request.")
-                .SetCode("500");
+            case ApiErrorException apiErrorException:
+                HandleApiErrorException(errorBuilder, apiErrorException);
+                break;
+            case ValidationException validationException:
+                HandleValidationException(errorBuilder, validationException);
+                break;
+            default:
+                errorBuilder
+                    .SetMessage("An error occured while processing request.")
+                    .SetCode("500");
+                break;
         }
         
         return errorBuilder.Build();
