@@ -1,24 +1,41 @@
 ﻿using MediatR;
-using Yantra.Application.DTOs;
-using Yantra.Application.FluentValidation;
-using Yantra.Mongo.Repositories;
+using Microsoft.Extensions.Caching.Memory;
+using Yantra.Application.Constants;
+using Yantra.Mongo.Models.Entities;
+using Yantra.Mongo.Models.Enums;
+using Yantra.Mongo.Repositories.Interfaces;
 
 namespace Yantra.Application.Features.MenuItems.Commands;
 
-public record UpdateMenuItemCommand(string Id, MenuItemDto MenuItem) : IRequest<bool>;
+public record UpdateMenuItemCommand(
+    string Id,
+    string Name,
+    string Description,
+    string Image,
+    ItemType Type,
+    decimal Price
+) : IRequest<bool>;
 
-public class UpdateMenuItemHandler(
+public class UpdateMenuItemCommandHandler(
     IMenuItemsRepository repository,
-    MenuItemDtoValidator validator
+    IMemoryCache cache
 ) : IRequestHandler<UpdateMenuItemCommand, bool>
 {
     public async Task<bool> Handle(UpdateMenuItemCommand request, CancellationToken cancellationToken)
     {
-        await validator.ValidateAsync(request.MenuItem, cancellationToken);
-        var menuItem = request.MenuItem.MapToMenuItem(request.Id);
-        
-        await repository.ReplaceOneAsync(menuItem);
+        var menuItem = new MenuItem()
+        {
+            Id = request.Id,
+            Name = request.Name,
+            Description = request.Description,
+            Image = request.Image,
+            Type = request.Type,
+            Price = request.Price
+        };
 
+        await repository.ReplaceOneAsync(menuItem, cancellationToken);
+        cache.Remove(CacheConstants.MenuItemsCacheKey);
+        
         return true;
     }
 }

@@ -1,15 +1,26 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
+    <PropertyGroup>
+      <LangVersion>latest</LangVersion>
+    </PropertyGroup>
+
     <ItemGroup>
       <PackageReference Include="FluentValidation.AspNetCore" />
       <PackageReference Include="HotChocolate" />
       <PackageReference Include="HotChocolate.AspNetCore" />
+      <PackageReference Include="HotChocolate.AspNetCore.Authorization" />
       <PackageReference Include="HotChocolate.Data" />
       <PackageReference Include="MediatR" />
       <PackageReference Include="Microsoft.AspNetCore.Routing" />
       <PackageReference Include="Microsoft.Extensions.DependencyInjection" />
       <PackageReference Include="MongoDB.Driver" />
       <PackageReference Include="Serilog.AspNetCore" />
+      <PackageReference Include="System.IdentityModel.Tokens.Jwt" />
+      <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Yantra.Mongo\Yantra.Mongo.csproj" />
     </ItemGroup>
 
 </Project>

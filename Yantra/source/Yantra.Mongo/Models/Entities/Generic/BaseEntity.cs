@@ -1,6 +1,5 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
-using Yantra.Infrastructure.Interfaces;
 
 namespace Yantra.Mongo.Models.Entities.Generic;
 

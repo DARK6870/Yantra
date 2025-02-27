@@ -1,35 +1,35 @@
 ﻿using MediatR;
-using Yantra.Application.DTOs;
 using Yantra.Application.Features.MenuItems.Commands;
 
 namespace Yantra.GraphQl.Mutation;
 
-[ExtendObjectType(typeof(GraphQlMutation))]
+[ExtendObjectType(typeof(Mutation))]
 public class MenuItemMutation
 {
     public async Task<bool> AddMenuItem(
         [Service] IMediator mediator,
-        MenuItemDto menuItem
+        AddMenuItemCommand request,
+        CancellationToken cancellationToken
     )
     {
-        return await mediator.Send(new AddMenuItemCommand(menuItem));
+        return await mediator.Send(request, cancellationToken);
     }
 
     public async Task<bool> UpdateMenuItem(
         [Service] IMediator mediator,
-        string id,
-        MenuItemDto menuItem
+        UpdateMenuItemCommand request,
+        CancellationToken cancellationToken
     )
     {
-        return await mediator.Send(new UpdateMenuItemCommand(id, menuItem));
+        return await mediator.Send(request, cancellationToken);
     }
 
     public async Task<bool> DeleteMenuItem(
         [Service] IMediator mediator,
-        string id
+        string id,
+        CancellationToken cancellationToken
     )
     {
-        await mediator.Send(new DeleteMenuItemByIdCommand(id));
-        return true;
+        return await mediator.Send(new DeleteMenuItemByIdCommand(id), cancellationToken);
     }
 }

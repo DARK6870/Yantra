@@ -4,18 +4,18 @@ using Yantra.Mongo.Models.Entities;
 
 namespace Yantra.GraphQl.Query;
 
-[ExtendObjectType(typeof(GraphQlQuery))]
+[ExtendObjectType(typeof(Query))]
 public class MenuItemQuery
 {
     [UseProjection]
     [UseFiltering]
     [UseSorting]
-    public IQueryable<MenuItem> GetMenuItems(
+    public async Task<List<MenuItem>> GetMenuItems(
         [Service] IMediator mediator,
         CancellationToken cancellationToken
     )
     {
-        return mediator.Send(new GetMenuItemsQuery(), cancellationToken).Result;
+        return await mediator.Send(new GetMenuItemsQuery(), cancellationToken);
     }
 
     [UseProjection]

@@ -1,12 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <ItemGroup>
+      <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" />
+      <PackageReference Include="Microsoft.Extensions.Configuration.Binder" />
       <PackageReference Include="MongoDB.Bson" />
       <PackageReference Include="MongoDB.Driver" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <ProjectReference Include="..\Yantra.Infrastructure\Yantra.Infrastructure.csproj" />
+      <PackageReference Include="Microsoft.Extensions.DependencyInjection" />
     </ItemGroup>
 
 </Project>

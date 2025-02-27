@@ -1,4 +1,6 @@
-﻿using Yantra.Infrastructure.Attributes;
+﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
+using Yantra.Mongo.Common.Attributes;
 using Yantra.Mongo.Models.Entities.Generic;
 using Yantra.Mongo.Models.Enums;
 
@@ -13,6 +15,7 @@ public class MenuItem : BaseEntity
     
     public required string Image { get; set; }
     
+    [BsonRepresentation(BsonType.String)]
     public required ItemType Type { get; set; }
     
     public decimal Price { get; set; }

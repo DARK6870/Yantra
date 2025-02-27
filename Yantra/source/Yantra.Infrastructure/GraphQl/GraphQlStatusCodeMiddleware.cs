@@ -1,8 +1,9 @@
-﻿using System.Text.Json;
+﻿using System.Text;
+using System.Text.Json;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
+using Yantra.Infrastructure.Configurations;
 using Yantra.Infrastructure.Models;
-using Yantra.Infrastructure.SerializerConfiguration;
 
 namespace Yantra.Infrastructure.GraphQl;
 
@@ -11,15 +12,16 @@ public class GraphQlStatusCodeMiddleware(
     ILogger<GraphQlStatusCodeMiddleware> logger
 )
 {
-    private static readonly Dictionary<string, int> _errorStatusCodes = new()
+    private static readonly Dictionary<string, int> ErrorStatusCodes = new()
     {
         { "AUTH_NOT_AUTHORIZED", StatusCodes.Status403Forbidden },
+        { "AUTH_NOT_AUTHENTICATED", StatusCodes.Status401Unauthorized },
         { "AUTH_UNAUTHENTICATED", StatusCodes.Status401Unauthorized },
         { "RESOURCE_NOT_FOUND", StatusCodes.Status404NotFound },
         { "INVALID_INPUT", StatusCodes.Status400BadRequest },
         { "INTERNAL_ERROR", StatusCodes.Status500InternalServerError }
     };
-    
+
     public async Task InvokeAsync(HttpContext context)
     {
         var originalBodyStream = context.Response.Body;
@@ -30,17 +32,16 @@ public class GraphQlStatusCodeMiddleware(
         await next(context);
 
         memoryStream.Seek(0, SeekOrigin.Begin);
-        var responseBody = await new StreamReader(memoryStream).ReadToEndAsync();
+        var buffer = new byte[memoryStream.Length];
+        await memoryStream.ReadExactlyAsync(buffer, 0, buffer.Length);
 
-        if (responseBody.Contains("\"errors\""))
+        byte[] errorsPattern = Encoding.UTF8.GetBytes("\"errors\"");
+        if (buffer.AsSpan().IndexOf(errorsPattern) >= 0)
         {
             try
             {
-                var errorResponse = JsonSerializer
-                    .Deserialize<ErrorResponse>(responseBody, JsonSerializerConfiguration.JsonSerializerOptions);
-
-                var code = errorResponse?.Errors?
-                    .FirstOrDefault()?.Extensions?.Code;
+                var errorResponse = JsonSerializer.Deserialize<ErrorResponse>(buffer, JsonSerializerConfiguration.JsonSerializerOptions);
+                var code = errorResponse?.Errors.FirstOrDefault()?.Extensions?.Code;
 
                 if (code != null)
                 {
@@ -48,7 +49,7 @@ public class GraphQlStatusCodeMiddleware(
                     {
                         context.Response.StatusCode = parsedCode;
                     }
-                    else if (_errorStatusCodes.TryGetValue(code, out var dictionaryCode))
+                    else if (ErrorStatusCodes.TryGetValue(code, out var dictionaryCode))
                     {
                         context.Response.StatusCode = dictionaryCode;
                     }
@@ -56,7 +57,7 @@ public class GraphQlStatusCodeMiddleware(
             }
             catch (JsonException ex)
             {
-                logger.LogError("Failed to deserialize result. Message: {message}.", ex.Message);
+                logger.LogError("Failed to deserialize result. Message: {Message}.", ex.Message);
             }
         }
 

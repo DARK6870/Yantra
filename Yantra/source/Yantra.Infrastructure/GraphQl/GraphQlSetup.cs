@@ -12,6 +12,7 @@ public static class GraphQlSetup
     public static IRequestExecutorBuilder ConfigureGraphQl(this IRequestExecutorBuilder requestExecutorBuilder)
     {
         requestExecutorBuilder
+            .AddAuthorization()
             .AddFiltering()
             .AddSorting()
             .AddProjections()

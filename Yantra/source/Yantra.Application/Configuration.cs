@@ -5,7 +5,7 @@ namespace Yantra.Application;
 
 public static class Configuration
 {
-    public static IServiceCollection AddServices(
+    public static IServiceCollection AddApplicationServices(
         this IServiceCollection services
     )
     {

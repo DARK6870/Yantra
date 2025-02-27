@@ -3,9 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yantra.API", "source\Yantra.API\Yantra.API.csproj", "{02A91A40-CA55-4F60-93AC-5106E1A1F10B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "source", "source", "{B33AE918-F467-48DC-A09D-5F61D9EA81BB}"
-	ProjectSection(SolutionItems) = preProject
-		source\Directory.Build.props = source\Directory.Build.props
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{315BE4BC-7C7D-44B0-B3F4-40055E1FD645}"
 EndProject
@@ -16,6 +13,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yantra.Mongo", "source\Yantra.Mongo\Yantra.Mongo.csproj", "{5676C87D-9A22-4B79-8F94-57624D98857C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "solution items", "solution items", "{F54D799D-5FCE-4E85-BEEA-2F3C5B6E9FDB}"
+	ProjectSection(SolutionItems) = preProject
+		Directory.Packages.props = Directory.Packages.props
+		Directory.Build.props = Directory.Build.props
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

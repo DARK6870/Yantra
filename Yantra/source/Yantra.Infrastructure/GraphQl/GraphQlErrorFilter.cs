@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using Yantra.Infrastructure.Exceptions;
+using Yantra.Infrastructure.Common.Exceptions;
 
 namespace Yantra.Infrastructure.GraphQl;
 
@@ -25,11 +25,6 @@ public class GraphQlErrorFilter : IErrorFilter
             case ValidationException validationException:
                 HandleValidationException(errorBuilder, validationException);
                 break;
-            default:
-                errorBuilder
-                    .SetMessage("An error occured while processing request.")
-                    .SetCode("500");
-                break;
         }
         
         return errorBuilder.Build();
@@ -46,7 +41,7 @@ public class GraphQlErrorFilter : IErrorFilter
     private static void HandleValidationException(IErrorBuilder errorBuilder, ValidationException validationException)
     {
         errorBuilder
-            .SetMessage("Invalid data input")
+            .SetMessage("Invalid request")
             .SetCode("INVALID_INPUT")
             .SetExtension("validationErrors", validationException.Errors);
     }
