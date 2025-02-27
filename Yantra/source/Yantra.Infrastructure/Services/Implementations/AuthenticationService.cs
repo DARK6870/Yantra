@@ -13,10 +13,9 @@ public class AuthenticationService(
 ) : IAuthenticationService
 {
     public string GenerateJwtToken(
+        string userName,
         string email,
-        string role,
-        string firstName,
-        string lastName
+        string role
     )
     {
         var tokenHandler = new JwtSecurityTokenHandler();
@@ -24,7 +23,7 @@ public class AuthenticationService(
 
         var claims = new List<Claim>
         {
-            new(ClaimTypes.Name, firstName + " " + lastName),
+            new(ClaimTypes.Name, userName),
             new(ClaimTypes.Email, email),
             new(ClaimTypes.Role, role)
         };

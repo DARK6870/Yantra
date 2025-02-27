@@ -11,9 +11,9 @@ public static class AuthenticationSetup
 {
     public static bool EnableSecurity = false;
 
-    public static string AdminAccessPolicy = "AdminAccessPolicy";
-    public static string ManagerAccessPolicy = "ManagerAccessPolicy";
-    public static string CourierAccessPolicy = "CourierAccessPolicy";
+    public static readonly string AdminAccessPolicy = "AdminAccessPolicy";
+    public static readonly string ManagerAccessPolicy = "ManagerAccessPolicy";
+    public static readonly string CourierAccessPolicy = "CourierAccessPolicy";
 
     private static readonly string[] AdminAccessPolicyRoles = [Role.Admin.ToString()];
     private static readonly string[] ManagerAccessPolicyRoles = [Role.Admin.ToString(), Role.Manager.ToString()];
