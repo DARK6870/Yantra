@@ -10,7 +10,9 @@ public class UpdateUserCommandValidator : AbstractValidator<UpdateUserCommand>
     {
         RuleFor(x => x.UserName)
             .NotEmpty()
+              .WithMessage("UserName cannot be empty")
             .MaximumLength(20)
+                .WithMessage("UserName cannot exceed 20 characters")
             .MustAsync(async (command, userName, cancellationToken) =>
                 !await usersRepository.ExistsAsync(
                     x => x.UserName == userName &&
@@ -22,7 +24,9 @@ public class UpdateUserCommandValidator : AbstractValidator<UpdateUserCommand>
 
         RuleFor(x => x.Email)
             .NotEmpty()
+                .WithMessage("Email cannot be empty")
             .EmailAddress()
+                .WithMessage("Invalid email address")
             .MustAsync(async (command, email, cancellationToken) =>
                 !await usersRepository.ExistsAsync(
                     x => x.Email == email
@@ -33,10 +37,14 @@ public class UpdateUserCommandValidator : AbstractValidator<UpdateUserCommand>
 
         RuleFor(x => x.FirstName)
             .NotEmpty()
-            .MaximumLength(20);
+                .WithMessage("FirstName cannot be empty")
+            .MaximumLength(20)
+                .WithMessage("FirstName cannot exceed 20 characters");
 
         RuleFor(x => x.LastName)
             .NotEmpty()
-            .MaximumLength(20);
+                .WithMessage("LastName cannot be empty")
+            .MaximumLength(20)
+                .WithMessage("LastName cannot exceed 20 characters");
     }
 }

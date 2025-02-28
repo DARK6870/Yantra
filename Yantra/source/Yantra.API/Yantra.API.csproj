@@ -11,12 +11,12 @@
         <PackageReference Include="HotChocolate.Data" />
         <PackageReference Include="MongoDB.Driver" />
         <PackageReference Include="Serilog.AspNetCore" />
-        <PackageReference Include="Microsoft.Extensions.DependencyInjection" />
     </ItemGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\Yantra.Application\Yantra.Application.csproj" />
       <ProjectReference Include="..\Yantra.Infrastructure\Yantra.Infrastructure.csproj" />
+      <ProjectReference Include="..\Yantra.Notifications\Yantra.Notifications.csproj" />
     </ItemGroup>
 
     <ItemGroup>

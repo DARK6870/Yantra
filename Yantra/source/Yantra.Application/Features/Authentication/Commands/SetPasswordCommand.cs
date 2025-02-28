@@ -1,21 +1,32 @@
-﻿using MediatR;
+﻿using System.Net;
+using MediatR;
+using MongoDB.Driver.Linq;
+using Yantra.Infrastructure.Common.Exceptions;
 using Yantra.Mongo.Repositories.Interfaces;
 
 namespace Yantra.Application.Features.Authentication.Commands;
 
 public record SetPasswordCommand(
     string Email,
-    string Password
+    string Password,
+    string SetPasswordToken
 ) : IRequest<bool>;
 
 public class SetPasswordCommandHandler(
-    IUsersRepository usersRepository
+    IUsersRepository repository
 ) : IRequestHandler<SetPasswordCommand, bool>
 {
     public async Task<bool> Handle(SetPasswordCommand request, CancellationToken cancellationToken)
     {
-        await usersRepository.UpdatePassword(request.Email, request.Password);
-        
+        var user = await repository.AsQueryable()
+            .FirstOrDefaultAsync(
+                x => x.Email == request.Email &&
+                     x.SetPasswordToken == request.SetPasswordToken,
+                cancellationToken
+            ) ?? throw new ApiErrorException("Invalid credentials", HttpStatusCode.BadRequest);
+
+        await repository.UpdatePasswordAsync(request.Email, request.Password);
+
         return true;
     }
 }

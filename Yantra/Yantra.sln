@@ -18,6 +18,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "solution items", "solution 
 		Directory.Build.props = Directory.Build.props
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yantra.Notifications", "source\Yantra.Notifications\Yantra.Notifications.csproj", "{322AEED7-4270-4837-8675-2BDF8ED54667}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -44,6 +46,10 @@ Global
 		{53091E53-1117-4DAA-8C1F-AC26C2878704}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{53091E53-1117-4DAA-8C1F-AC26C2878704}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{53091E53-1117-4DAA-8C1F-AC26C2878704}.Release|Any CPU.Build.0 = Release|Any CPU
+		{322AEED7-4270-4837-8675-2BDF8ED54667}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{322AEED7-4270-4837-8675-2BDF8ED54667}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{322AEED7-4270-4837-8675-2BDF8ED54667}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{322AEED7-4270-4837-8675-2BDF8ED54667}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{02A91A40-CA55-4F60-93AC-5106E1A1F10B} = {B33AE918-F467-48DC-A09D-5F61D9EA81BB}
@@ -51,5 +57,6 @@ Global
 		{9D859680-9AB9-4728-992C-445973D2821A} = {B33AE918-F467-48DC-A09D-5F61D9EA81BB}
 		{5676C87D-9A22-4B79-8F94-57624D98857C} = {B33AE918-F467-48DC-A09D-5F61D9EA81BB}
 		{53091E53-1117-4DAA-8C1F-AC26C2878704} = {B33AE918-F467-48DC-A09D-5F61D9EA81BB}
+		{322AEED7-4270-4837-8675-2BDF8ED54667} = {B33AE918-F467-48DC-A09D-5F61D9EA81BB}
 	EndGlobalSection
 EndGlobal

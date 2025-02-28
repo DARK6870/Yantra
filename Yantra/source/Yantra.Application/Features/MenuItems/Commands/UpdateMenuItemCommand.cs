@@ -1,6 +1,8 @@
-﻿using MediatR;
+﻿using System.Net;
+using MediatR;
 using Microsoft.Extensions.Caching.Memory;
 using Yantra.Application.Constants;
+using Yantra.Infrastructure.Common.Exceptions;
 using Yantra.Mongo.Models.Entities;
 using Yantra.Mongo.Models.Enums;
 using Yantra.Mongo.Repositories.Interfaces;
@@ -23,6 +25,9 @@ public class UpdateMenuItemCommandHandler(
 {
     public async Task<bool> Handle(UpdateMenuItemCommand request, CancellationToken cancellationToken)
     {
+        if (!await repository.ExistsAsync(request.Id, cancellationToken))
+            throw new ApiErrorException("MenuItem does not exist", HttpStatusCode.NotFound);
+        
         var menuItem = new MenuItem()
         {
             Id = request.Id,

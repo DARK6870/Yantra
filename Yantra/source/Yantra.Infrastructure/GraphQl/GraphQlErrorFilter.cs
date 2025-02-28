@@ -1,16 +1,17 @@
 ﻿using FluentValidation;
+using Microsoft.Extensions.Logging;
 using Yantra.Infrastructure.Common.Exceptions;
 
 namespace Yantra.Infrastructure.GraphQl;
 
-public class GraphQlErrorFilter : IErrorFilter
+public class GraphQlErrorFilter(ILogger<GraphQlErrorFilter> logger) : IErrorFilter
 {
     public IError OnError(IError error)
     {
         return GetErrorResponse(error);
     }
 
-    private static IError GetErrorResponse(IError error)
+    private IError GetErrorResponse(IError error)
     {
         var errorBuilder = ErrorBuilder
             .FromError(error)
@@ -24,6 +25,9 @@ public class GraphQlErrorFilter : IErrorFilter
                 break;
             case ValidationException validationException:
                 HandleValidationException(errorBuilder, validationException);
+                break;
+            default:
+                logger.LogError("Unhandled error occured, error: {@error}", error.Exception);
                 break;
         }
         

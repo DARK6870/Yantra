@@ -9,17 +9,21 @@ public class AddMenuItemCommandValidator : AbstractValidator<AddMenuItemCommand>
     {
         RuleFor(x => x.Name)
             .NotEmpty()
-            .Length(5, 40);
+                .WithMessage("Name can not be empty")
+            .Length(5, 40)
+                .WithMessage("Name must be between 5 and 30 characters");
 
         RuleFor(x => x.Description)
             .NotEmpty()
-            .MaximumLength(300);
+                .WithMessage("Description can not be empty")
+            .MaximumLength(300)
+                .WithMessage("Description length can not exceed 300 characters");
 
         RuleFor(x => x.Image)
-            .NotEmpty();
+            .NotEmpty()
+                .WithMessage("Image can not be empty");
         
         RuleFor(x => x.Price)
-            .NotNull()
             .GreaterThan(0)
                 .WithMessage("Item price must be greater than 0.");
     }

@@ -1,12 +1,12 @@
 using Serilog;
-using Yantra;
 using Yantra.Application;
 using Yantra.GraphQl;
 using Yantra.Infrastructure;
+using Yantra.Infrastructure.Authentication;
 using Yantra.Infrastructure.Configurations;
 using Yantra.Infrastructure.GraphQl;
 using Yantra.Mongo;
-using Yantra.Mongo.Models.Enums;
+using Yantra.Notifications;
 
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
@@ -20,14 +20,9 @@ builder.Host.UseSerilog();
 
 services
     .AddConfiguration(configuration)
-    .AddBearerAuthentication(configuration)
-    .AddAuthorization(options =>
-    {
-        options.AddPolicy("Admin", policy => policy.RequireRole(Role.Admin.ToString()));
-        options.AddPolicy("Manager", policy => policy.RequireRole(Role.Manager.ToString(), Role.Admin.ToString()));
-        options.AddPolicy("Courier", policy => policy.RequireRole(Role.Courier.ToString(), Role.Admin.ToString(), Role.Manager.ToString()));
-    })
+    .AddJwtAuthentication(configuration)
     .AddMongoDb(configuration)
+    .AddNotificationService(configuration)
     .AddRepositories()
     .AddPipelineBehaviours()
     .AddInfrastructureServices()

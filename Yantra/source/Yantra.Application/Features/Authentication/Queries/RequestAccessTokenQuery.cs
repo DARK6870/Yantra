@@ -18,14 +18,11 @@ public class RequestAccessTokenQueryHandler(
 {
     public async Task<string> Handle(RequestAccessTokenQuery request, CancellationToken cancellationToken)
     {
-        var user = await repository.GetUserByCredentials(request.Email, request.Password);
-
-        if (user == null)
-            throw new ApiErrorException("Invalid credentials, please try again", HttpStatusCode.BadRequest);
+        var user = await repository.GetUserByCredentialsAsync(request.Email, request.Password)
+                   ?? throw new ApiErrorException("Invalid credentials, please try again", HttpStatusCode.BadRequest);
 
         return authenticationService.GenerateJwtToken(
-            user.FirstName,
-            user.LastName,
+            user.UserName,
             user.Email,
             user.Role.ToString()
         );

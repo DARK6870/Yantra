@@ -23,4 +23,8 @@
       <ProjectReference Include="..\Yantra.Mongo\Yantra.Mongo.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageVersion Update="Microsoft.Extensions.DependencyInjection" Version="9.0.2" />
+    </ItemGroup>
+
 </Project>

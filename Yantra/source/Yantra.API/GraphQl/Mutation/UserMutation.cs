@@ -7,7 +7,7 @@ namespace Yantra.GraphQl.Mutation;
 public class UserMutation
 {
     public async Task<bool> AddUser(
-        [Service] Mediator mediator,
+        [Service] IMediator mediator,
         CreateUserCommand request,
         CancellationToken cancellationToken)
     {
@@ -15,7 +15,7 @@ public class UserMutation
     }
 
     public async Task<bool> UpdateUser(
-        [Service] Mediator mediator,
+        [Service] IMediator mediator,
         UpdateUserCommand request,
         CancellationToken cancellationToken
     )
@@ -24,7 +24,7 @@ public class UserMutation
     }
     
     public async Task<bool> DeleteUser(
-        [Service] Mediator mediator,
+        [Service] IMediator mediator,
         string id,
         CancellationToken cancellationToken
     )

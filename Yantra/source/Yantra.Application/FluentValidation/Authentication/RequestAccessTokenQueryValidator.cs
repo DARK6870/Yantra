@@ -9,9 +9,12 @@ public class RequestAccessTokenQueryValidator : AbstractValidator<RequestAccessT
     {
         RuleFor(x => x.Email)
             .NotEmpty()
-            .EmailAddress();
+                .WithMessage("Email can not be empty")
+            .EmailAddress()
+                .WithMessage("Invalid email address");
 
         RuleFor(x => x.Password)
-            .NotEmpty();
+            .NotEmpty()
+                .WithMessage("Password can not be empty");
     }
 }

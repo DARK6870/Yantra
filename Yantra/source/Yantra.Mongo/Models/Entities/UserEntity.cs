@@ -21,8 +21,8 @@ public class UserEntity : BaseEntity
     public Role Role { get; set; }
     
     public string? PasswordHash { get; set; }
-    
-    public bool MustChangePassword { get; set; }
+
+    public string? SetPasswordToken { get; set; } = Guid.NewGuid().ToString();
     
     public DateTime CreateDate { get; set; } = DateTime.UtcNow;
     

@@ -7,11 +7,9 @@ public class UserQueryType : ObjectTypeExtension<UserQuery>
 {
     protected override void Configure(IObjectTypeDescriptor<UserQuery> descriptor)
     {
-        if (AuthenticationSetup.EnableSecurity)
+        if (!AuthenticationSetup.EnableSecurity)
             return;
         
-        descriptor
-            .Field(x => x.GetUsers(null!))
-            .Authorize(AuthenticationSetup.AdminAccessPolicy);
+        descriptor.Authorize(AuthenticationSetup.AdminAccessPolicy);
     }
 }

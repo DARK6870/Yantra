@@ -4,9 +4,9 @@ namespace Yantra.Mongo.Repositories.Interfaces;
 
 public interface IUsersRepository : IGenericRepository<UserEntity>
 {
-    Task<UserEntity?> GetUserByCredentials(string email, string password);
+    Task<UserEntity?> GetUserByCredentialsAsync(string email, string password);
     
-    Task<bool> UpdatePassword(string email, string password);
+    Task<bool> UpdatePasswordAsync(string email, string password);
     
-    Task<UserEntity?> GetUserByEmail(string email);
+    Task<UserEntity?> GetUserByEmailAsync(string email);
 }

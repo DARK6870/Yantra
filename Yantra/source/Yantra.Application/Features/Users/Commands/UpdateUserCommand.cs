@@ -1,5 +1,6 @@
-﻿using FluentValidation;
+﻿using System.Net;
 using MediatR;
+using Yantra.Infrastructure.Common.Exceptions;
 using Yantra.Mongo.Models.Entities;
 using Yantra.Mongo.Models.Enums;
 using Yantra.Mongo.Repositories.Interfaces;
@@ -22,7 +23,7 @@ public class UpdateUserCommandHandler(
     public async Task<bool> Handle(UpdateUserCommand request, CancellationToken cancellationToken)
     {
         var user = await usersRepository.FindByIdAsync(request.Id, cancellationToken)
-                   ?? throw new ValidationException("User was not found");
+                   ?? throw new ApiErrorException("User was not found", HttpStatusCode.NotFound);
         
         var updatedUser = new UserEntity()
         {
@@ -33,7 +34,7 @@ public class UpdateUserCommandHandler(
             LastName = request.LastName,
             Role = request.Role,
             PasswordHash = user.PasswordHash,
-            MustChangePassword = user.MustChangePassword,
+            SetPasswordToken = user.SetPasswordToken,
             CreateDate = user.CreateDate,
         };
 

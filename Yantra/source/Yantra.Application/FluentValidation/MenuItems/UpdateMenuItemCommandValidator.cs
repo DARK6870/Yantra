@@ -6,34 +6,30 @@ namespace Yantra.Application.FluentValidation.MenuItems;
 
 public class UpdateMenuItemCommandValidator : AbstractValidator<UpdateMenuItemCommand>
 {
-    public UpdateMenuItemCommandValidator(IMenuItemsRepository repository)
+    public UpdateMenuItemCommandValidator()
     {
         RuleFor(x => x.Id)
-            .NotEmpty()
             .Must(ValidationHelper.IsValidObjectId)
-                .WithMessage("Id must be a valid ObjectId.")
-            .MustAsync(async (id, cancellationToken) =>
-                await repository.ExistsAsync(
-                    x => x.Id == id,
-                    cancellationToken)
-            )
-            .WithMessage("Id cannot be found.");
+                .WithMessage("Id must be a valid ObjectId.");
 
         RuleFor(x => x.Name)
             .NotEmpty()
+                .WithMessage("Name can not be empty")
             .Length(5, 40)
-                .WithMessage("Item name must be between 5 and 40 characters.");
+                .WithMessage("Name must be between 5 and 40 characters.");
 
         RuleFor(x => x.Description)
             .NotEmpty()
-            .MaximumLength(300);
+                .WithMessage("Description can not be empty")
+            .MaximumLength(300)
+                .WithMessage("Description can not exceed 300 characters");
 
         RuleFor(x => x.Image)
-            .NotEmpty();
+            .NotEmpty()
+                .WithMessage("Image can not be empty");
         
         RuleFor(x => x.Price)
-            .NotNull()
             .GreaterThan(0)
-                .WithMessage("Item price must be greater than 0.");
+                .WithMessage("Price must be greater than 0.");
     }
 }

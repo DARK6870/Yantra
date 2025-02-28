@@ -4,6 +4,7 @@ using HotChocolate.Types.Descriptors;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
+using Yantra.Infrastructure.Authentication;
 
 namespace Yantra.Infrastructure.GraphQl;
 
@@ -11,8 +12,10 @@ public static class GraphQlSetup
 {
     public static IRequestExecutorBuilder ConfigureGraphQl(this IRequestExecutorBuilder requestExecutorBuilder)
     {
+        if (AuthenticationSetup.EnableSecurity)
+            requestExecutorBuilder.AddAuthorization();
+        
         requestExecutorBuilder
-            .AddAuthorization()
             .AddFiltering()
             .AddSorting()
             .AddProjections()

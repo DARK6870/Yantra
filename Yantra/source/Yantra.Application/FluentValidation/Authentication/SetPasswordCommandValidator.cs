@@ -1,26 +1,24 @@
 ﻿using FluentValidation;
 using Yantra.Application.Features.Authentication.Commands;
-using Yantra.Mongo.Repositories.Interfaces;
 
 namespace Yantra.Application.FluentValidation.Authentication;
 
 public class SetPasswordCommandValidator : AbstractValidator<SetPasswordCommand>
 {
-    public SetPasswordCommandValidator(IUsersRepository usersRepository)
+    public SetPasswordCommandValidator()
     {
         RuleFor(x => x.Email)
             .NotEmpty()
-            .MustAsync(async (email, cancellationToken) =>
-            {
-                var user = await usersRepository.GetUserByEmail(email);
-                
-                return user is { MustChangePassword: true };
-            })
-            .WithMessage("Password can not be changed.");
-
+                .WithMessage("Email can not be empty");
+        
         RuleFor(x => x.Password)
             .NotEmpty()
+                .WithMessage("Password can not be empty")
             .Length(6, 20)
-                .WithMessage("Password must be between 6 and 20 characters.");;
+                .WithMessage("Password must be between 6 and 20 characters");
+        
+        RuleFor(x => x.SetPasswordToken)
+            .NotEmpty()
+                .WithMessage("Email can not be empty");
     }
 }
