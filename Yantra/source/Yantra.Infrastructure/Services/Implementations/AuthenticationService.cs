@@ -1,5 +1,6 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -38,5 +39,16 @@ public class AuthenticationService(
 
         var token = tokenHandler.CreateToken(tokenDescriptor);
         return tokenHandler.WriteToken(token);
+    }
+
+    public string GenerateRefreshToken()
+    {
+        var tokenSize = 32;
+
+        using var rng = RandomNumberGenerator.Create();
+        var randomBytes = new byte[tokenSize];
+        rng.GetBytes(randomBytes);
+        
+        return Convert.ToBase64String(randomBytes);
     }
 }

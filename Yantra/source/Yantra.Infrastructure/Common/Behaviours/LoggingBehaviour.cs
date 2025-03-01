@@ -14,19 +14,19 @@ public class LoggingBehavior<TRequest, TResponse>(
         CancellationToken cancellationToken
     )
     {
-        logger.LogDebug("Handling request: {RequestType}\nRequest: {@Request}", typeof(TRequest).Name, request);
+        logger.LogDebug("Handling request: {requestType}", typeof(TRequest).Name);
 
         try
         {
             var response = await next();
 
-            logger.LogDebug("Request {RequestType} proceed successfully", typeof(TRequest).Name);
+            logger.LogDebug("Request {requestType} proceed successfully", typeof(TRequest).Name);
 
             return response;
         }
         catch (Exception ex)
         {
-            logger.LogError(ex, "Request {RequestType} failed.\nRequest: {@Request}", typeof(TRequest).Name, request);
+            logger.LogError(ex, "Request {requestType} failed.\nRequest: {@request}", typeof(TRequest).Name, request);
             throw;
         }
     }

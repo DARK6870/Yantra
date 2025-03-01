@@ -5,8 +5,9 @@ using Yantra.Mongo.Repositories.Interfaces;
 
 namespace Yantra.Mongo.Repositories.Implementations;
 
-public class UsersRepository(IMongoDatabase database)
-    : GenericRepository<UserEntity>(database), IUsersRepository
+public class UsersRepository(
+    IMongoDatabase database
+) : GenericRepository<UserEntity>(database), IUsersRepository
 {
     public async Task<UserEntity?> GetUserByCredentialsAsync(string email, string password)
     {
@@ -25,7 +26,7 @@ public class UsersRepository(IMongoDatabase database)
     public async Task<bool> UpdatePasswordAsync(string email, string password)
     {
         var passwordHash = HashHelper.ComputeHash(password);
-        
+
         var result = await Collection.UpdateOneAsync(
             x => x.Email == email,
             Builders<UserEntity>.Update

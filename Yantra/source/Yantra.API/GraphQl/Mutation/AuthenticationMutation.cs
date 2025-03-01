@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Yantra.Application.Features.Authentication.Commands;
+using Yantra.Application.Responses;
 
 namespace Yantra.GraphQl.Mutation;
 
@@ -22,5 +23,22 @@ public class AuthenticationMutation
     )
     {
         return await mediator.Send(request, cancellationToken);
+    }
+    
+    public async Task<LoginResponse> Login(
+        [Service] IMediator mediator,
+        LoginCommand request,
+        CancellationToken cancellationToken
+    )
+    {
+        return await mediator.Send(request, cancellationToken);
+    }
+
+    public async Task<bool> Logout(
+        [Service] IMediator mediator,
+        CancellationToken cancellationToken
+    )
+    {
+        return await mediator.Send(new LogoutCommand(), cancellationToken);
     }
 }

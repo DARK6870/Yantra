@@ -6,12 +6,11 @@ namespace Yantra.GraphQl.Query;
 [ExtendObjectType(typeof(Query))]
 public class AuthenticationQuery
 {
-    public async Task<string> RequestAccessToken(
+    public async Task<string> RefreshAccessToken(
         [Service] IMediator mediator,
-        RequestAccessTokenQuery request,
         CancellationToken cancellationToken
     )
     {
-        return await mediator.Send(request, cancellationToken);
+        return await mediator.Send(new RefreshAccessTokenQuery(), cancellationToken);
     }
 }

@@ -18,7 +18,7 @@ public class GraphQlErrorFilter(ILogger<GraphQlErrorFilter> logger) : IErrorFilt
             .ClearExtensions()
             .ClearLocations();
         
-        switch (error.Exception)
+        switch (error.Exception?.GetBaseException())
         {
             case ApiErrorException apiErrorException:
                 HandleApiErrorException(errorBuilder, apiErrorException);

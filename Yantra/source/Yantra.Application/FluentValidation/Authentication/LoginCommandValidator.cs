@@ -1,11 +1,11 @@
 ﻿using FluentValidation;
-using Yantra.Application.Features.Authentication.Queries;
+using Yantra.Application.Features.Authentication.Commands;
 
 namespace Yantra.Application.FluentValidation.Authentication;
 
-public class RequestAccessTokenQueryValidator : AbstractValidator<RequestAccessTokenQuery>
+public class LoginCommandValidator : AbstractValidator<LoginCommand>
 {
-    public RequestAccessTokenQueryValidator()
+    public LoginCommandValidator()
     {
         RuleFor(x => x.Email)
             .NotEmpty()

@@ -7,4 +7,6 @@ public interface IAuthenticationService
         string email,
         string role
     );
+    
+    public string GenerateRefreshToken();
 }

@@ -1,6 +1,7 @@
 ﻿using System.Text;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
@@ -21,6 +22,8 @@ public static class Configuration
             .AddSingleton<IAuthenticationService, AuthenticationService>()
             .AddMemoryCache()
             ;
+        
+        services.AddHttpContextAccessor();
 
         return services;
     }

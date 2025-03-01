@@ -12,7 +12,7 @@ public class GenericRepository<T>(
     IMongoDatabase mongoDatabase
 ) : IGenericRepository<T> where T : IEntity
 {
-    protected IMongoCollection<T> Collection => mongoDatabase.GetCollection<T>(GetCollectionName(typeof(T)));
+    protected IMongoCollection<T> Collection => mongoDatabase.GetCollection<T>(MongoCollectionAttribute.GetCollectionName(typeof(T)));
 
     public IQueryable<T> AsQueryable()
     {
@@ -80,14 +80,5 @@ public class GenericRepository<T>(
     )
     {
         return await Collection.AsQueryable().FirstOrDefaultAsync(x => x.Id == id, cancellationToken) != null;
-    }
-
-    private static string GetCollectionName(Type entityType)
-    {
-        var collectionName = entityType.GetCustomAttribute<MongoCollectionAttribute>()?.Name;
-
-        return !string.IsNullOrEmpty(collectionName)
-            ? collectionName
-            : entityType.Name;
     }
 }

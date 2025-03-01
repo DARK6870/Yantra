@@ -4,8 +4,9 @@ using Yantra.Mongo.Repositories.Interfaces;
 
 namespace Yantra.Mongo.Repositories.Implementations;
 
-public class MenuItemsRepository(
+public class MigrationsRepository(
     IMongoDatabase database
-) : GenericRepository<MenuItem>(database), IMenuItemsRepository
+) : GenericRepository<MigrationEntity>(database), IMigrationsRepository
 {
+    
 }

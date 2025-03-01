@@ -6,6 +6,7 @@ using Yantra.Infrastructure.Authentication;
 using Yantra.Infrastructure.Configurations;
 using Yantra.Infrastructure.GraphQl;
 using Yantra.Mongo;
+using Yantra.Mongo.Migration;
 using Yantra.Notifications;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -24,6 +25,7 @@ services
     .AddMongoDb(configuration)
     .AddNotificationService(configuration)
     .AddRepositories()
+    .AddMongoMigrations()
     .AddPipelineBehaviours()
     .AddInfrastructureServices()
     .AddApplicationServices()
@@ -41,5 +43,7 @@ app
     .UseAuthorization()
     .UseMiddleware<GraphQlStatusCodeMiddleware>()
     ;
+
+await app.ExecuteMigrations();
 
 app.Run();
