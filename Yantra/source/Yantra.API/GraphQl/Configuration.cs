@@ -25,9 +25,10 @@ public static class Configuration
     {
         requestExecutorBuilder
             .AddMutationType<Mutation.Mutation>()
+            .AddTypeExtension<AuthenticationMutationType>()
             .AddTypeExtension<MenuItemMutationType>()
             .AddTypeExtension<UserMutationType>()
-            .AddTypeExtension<AuthenticationMutationType>()
+            .AddTypeExtension<OrderMutationType>()
             ;
 
         return requestExecutorBuilder;

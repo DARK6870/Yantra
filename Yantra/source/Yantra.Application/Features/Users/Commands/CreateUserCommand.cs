@@ -1,4 +1,7 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Http;
+using Yantra.Application.Constants;
+using Yantra.Infrastructure.Common.Extensions;
 using Yantra.Mongo.Models.Entities;
 using Yantra.Mongo.Models.Enums;
 using Yantra.Mongo.Repositories.Interfaces;
@@ -18,7 +21,8 @@ public record CreateUserCommand(
 
 public class CreateUserCommandHandler(
     IUsersRepository usersRepository,
-    INotificationService notificationService
+    INotificationService notificationService,
+    IHttpContextAccessor httpContextAccessor
 ) : IRequestHandler<CreateUserCommand, bool>
 {
     public async Task<bool> Handle(CreateUserCommand request, CancellationToken cancellationToken)
@@ -34,13 +38,18 @@ public class CreateUserCommandHandler(
         
         await usersRepository.InsertOneAsync(user, cancellationToken);
 
+        return true;
+    }
+
+    private async Task SendAccountCreatedEmailAsync(UserEntity user)
+    {
         var emailMessage = new MessageBuilder
         {
             Title = "Your account has been successfully created",
             FullName = user.FirstName + " " + user.LastName,
             Message = "Your account has been successfully created! To log in to Yantra, please follow the link below and change your password.",
-            ActionUrl = "https://google.com",
-            ActionText = "to log in to Yantra."
+            ActionUrl = httpContextAccessor.GetHostUrl() + HttpConstants.SetPasswordPath(user.SetPasswordToken!),
+            ActionText = "to log in to Yantra"
         };
         
         await notificationService.SendEmailNotification(
@@ -48,7 +57,5 @@ public class CreateUserCommandHandler(
             NotificationTypes.AccountRegistration,
             emailMessage
         );
-            
-        return true;
     }
 }

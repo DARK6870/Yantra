@@ -1,7 +1,7 @@
 ﻿using System.Net;
 using System.Net.Mail;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using MimeKit;
 using Yantra.Notifications.Builders;
 using Yantra.Notifications.Options;
 using Yantra.Notifications.Services.Interfaces;
@@ -9,7 +9,8 @@ using Yantra.Notifications.Services.Interfaces;
 namespace Yantra.Notifications.Services.Implementations;
 
 public class NotificationService(
-    IOptions<SmtpOptions> smtpOptions
+    IOptions<SmtpOptions> smtpOptions,
+    ILogger<NotificationService> logger
 ) : INotificationService
 {
     private readonly SmtpOptions _smtpOptions = smtpOptions.Value;
@@ -26,7 +27,7 @@ public class NotificationService(
             Credentials = new NetworkCredential(_smtpOptions.SmtpEmail, _smtpOptions.SmtpPassword),
             EnableSsl = true
         };
-        
+
         var mailMessage = new MailMessage
         {
             From = new MailAddress(_smtpOptions.SmtpEmail),
@@ -35,8 +36,27 @@ public class NotificationService(
             IsBodyHtml = true
         };
         mailMessage.To.Add(emailTo);
-        
-        await smtpClient.SendMailAsync(mailMessage);
+        try
+        {
+            await smtpClient.SendMailAsync(mailMessage);
+
+            logger.LogInformation(
+                "Email with subject '{subject}' was successfully sent to '{emailTo}'.",
+                subject,
+                emailTo
+            );
+        }
+        catch (Exception ex)
+        {
+            logger.LogError(
+                ex,
+                "Failed to send notification to '{emailTo}', subject '{subject}'",
+                emailTo,
+                subject
+            );
+            
+            throw;
+        }
     }
 
     private async Task<string> GetEmailTemplateAsync(string content)

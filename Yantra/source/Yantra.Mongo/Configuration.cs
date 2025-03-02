@@ -1,7 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MongoDB.Driver;
-using Yantra.Mongo.Models.Entities;
 using Yantra.Mongo.Repositories.Implementations;
 using Yantra.Mongo.Repositories.Interfaces;
 
@@ -19,6 +18,7 @@ public static class Configuration
             .AddSingleton<IUsersRepository, UsersRepository>()
             .AddSingleton<IRefreshTokensRepository, RefreshTokensRepository>()
             .AddSingleton<IMigrationsRepository, MigrationsRepository>()
+            .AddSingleton<IOrdersRepository, OrdersRepository>()
             ;
         
         return services;
