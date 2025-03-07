@@ -1,5 +1,8 @@
 ﻿using HotChocolate.Execution.Configuration;
+using Yantra.GraphQl.Subscription;
 using Yantra.GraphQl.Types;
+using Yantra.GraphQl.Types.MutationTypes;
+using Yantra.GraphQl.Types.QueryTypes;
 
 namespace Yantra.GraphQl;
 
@@ -14,6 +17,7 @@ public static class Configuration
             .AddTypeExtension<MenuItemQueryType>()
             .AddTypeExtension<UserQueryType>()
             .AddTypeExtension<AuthenticationQueryType>()
+            .AddTypeExtension<OrderQueryType>()
             ;
 
         return requestExecutorBuilder;
@@ -29,6 +33,18 @@ public static class Configuration
             .AddTypeExtension<MenuItemMutationType>()
             .AddTypeExtension<UserMutationType>()
             .AddTypeExtension<OrderMutationType>()
+            ;
+
+        return requestExecutorBuilder;
+    }
+    
+    public static IRequestExecutorBuilder AddGraphQlSubscription(
+        this IRequestExecutorBuilder requestExecutorBuilder
+    )
+    {
+        requestExecutorBuilder
+            .AddSubscriptionType<Subscription.Subscription>()
+            .AddTypeExtension<OrderSubscription>()
             ;
 
         return requestExecutorBuilder;

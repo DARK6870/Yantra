@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
 using Yantra.Infrastructure.Authentication;
+using Yantra.Infrastructure.Common.Constants;
 
 namespace Yantra.Infrastructure.GraphQl;
 
@@ -19,9 +20,11 @@ public static class GraphQlSetup
             .AddFiltering()
             .AddSorting()
             .AddProjections()
+            .AddQueryableOffsetPagingProvider(GraphQlConstants.QueryablePaginationProvider)
             .DisableIntrospection(false)
             .AddErrorFilter<GraphQlErrorFilter>()
             .AddConvention<INamingConventions>(new ApplicationNamingConvention())
+            .AddInMemorySubscriptions()
             ;
 
         return requestExecutorBuilder;

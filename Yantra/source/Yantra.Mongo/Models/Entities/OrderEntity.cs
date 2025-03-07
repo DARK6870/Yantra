@@ -1,4 +1,6 @@
-﻿using Yantra.Mongo.Common.Attributes;
+﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
+using Yantra.Mongo.Common.Attributes;
 using Yantra.Mongo.Models.Entities.Generic;
 using Yantra.Mongo.Models.Enums;
 
@@ -19,6 +21,7 @@ public class OrderEntity : BaseEntity
 
     public List<OrderItem> OrderItems { get; set; } = [];
     
+    [BsonRepresentation(BsonType.String)]
     public OrderStatus Status { get; set; }
     
     public decimal DeliveryPrice { get; set; }

@@ -33,6 +33,7 @@ services
     .ConfigureGraphQl()
     .AddGraphQlQuery()
     .AddGraphQlMutation()
+    .AddGraphQlSubscription()
     ;
 
 var app = builder.Build();
@@ -42,6 +43,7 @@ app
     .UseAuthentication()
     .UseAuthorization()
     .UseMiddleware<GraphQlStatusCodeMiddleware>()
+    .UseWebSockets()
     ;
 
 await app.ExecuteMigrations();

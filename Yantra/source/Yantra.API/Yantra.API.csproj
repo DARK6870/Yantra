@@ -20,8 +20,4 @@
       <ProjectReference Include="..\Yantra.Notifications\Yantra.Notifications.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="GraphQl\Subscription\" />
-    </ItemGroup>
-
 </Project>

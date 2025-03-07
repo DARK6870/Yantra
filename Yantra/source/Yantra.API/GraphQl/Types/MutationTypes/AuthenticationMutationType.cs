@@ -1,7 +1,7 @@
 ﻿using Yantra.GraphQl.Mutation;
 using Yantra.Infrastructure.Authentication;
 
-namespace Yantra.GraphQl.Types;
+namespace Yantra.GraphQl.Types.MutationTypes;
 
 public class AuthenticationMutationType : ObjectTypeExtension<AuthenticationMutation>
 {

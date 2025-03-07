@@ -18,12 +18,13 @@ public static class Configuration
         this IServiceCollection services
     )
     {
+        services.AddHttpContextAccessor();
+        
         services
             .AddSingleton<IAuthenticationService, AuthenticationService>()
+            .AddScoped<IUserContext, UserContext>()
             .AddMemoryCache()
             ;
-        
-        services.AddHttpContextAccessor();
 
         return services;
     }

@@ -1,8 +1,10 @@
 ﻿using System.Net;
+using HotChocolate.Subscriptions;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using MongoDB.Driver.Linq;
 using Yantra.Application.Constants;
+using Yantra.Infrastructure.Common.Constants;
 using Yantra.Infrastructure.Common.Exceptions;
 using Yantra.Infrastructure.Common.Extensions;
 using Yantra.Mongo.Models;
@@ -20,7 +22,7 @@ public record CreateOrderCommand(
     string CustomerAddress,
     string CustomerEmail,
     string CustomerPhone,
-    string OrderDetails,
+    string? OrderDetails,
     List<OrderItem> OrderItems,
     decimal DeliveryPrice
 ) : IRequest<bool>;
@@ -29,7 +31,8 @@ public class CreateOrderCommandHandler(
     IOrdersRepository ordersRepository,
     IMenuItemsRepository menuItemRepository,
     IHttpContextAccessor httpContextAccessor,
-    INotificationService notificationService
+    INotificationService notificationService,
+    ITopicEventSender eventSender
 ) : IRequestHandler<CreateOrderCommand, bool>
 {
     public async Task<bool> Handle(CreateOrderCommand request, CancellationToken cancellationToken)
@@ -60,6 +63,7 @@ public class CreateOrderCommandHandler(
 
 
         await ordersRepository.InsertOneAsync(order, cancellationToken);
+        await eventSender.SendAsync(GraphQlConstants.OrderEventsTopicName, order.Id, cancellationToken);
         await SendOrderCreatedEmailAsync(order);
 
         return true;

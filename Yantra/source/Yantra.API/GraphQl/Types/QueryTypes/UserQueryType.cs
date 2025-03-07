@@ -1,7 +1,7 @@
 ﻿using Yantra.GraphQl.Query;
 using Yantra.Infrastructure.Authentication;
 
-namespace Yantra.GraphQl.Types;
+namespace Yantra.GraphQl.Types.QueryTypes;
 
 public class UserQueryType : ObjectTypeExtension<UserQuery>
 {
