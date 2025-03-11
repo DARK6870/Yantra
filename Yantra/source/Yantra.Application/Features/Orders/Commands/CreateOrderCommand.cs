@@ -84,7 +84,7 @@ public class CreateOrderCommandHandler(
 
         await notificationService.SendEmailNotification(
             order.CustomerEmail,
-            NotificationTypes.OrderAccepted,
+            NotificationSubjects.OrderAccepted,
             email
         );
     }

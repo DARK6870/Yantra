@@ -54,7 +54,7 @@ public class CreateUserCommandHandler(
         
         await notificationService.SendEmailNotification(
             user.Email,
-            NotificationTypes.AccountRegistration,
+            NotificationSubjects.AccountRegistration,
             emailMessage
         );
     }

@@ -3,6 +3,7 @@ using System.Net.Mail;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Yantra.Notifications.Builders;
+using Yantra.Notifications.Models;
 using Yantra.Notifications.Options;
 using Yantra.Notifications.Services.Interfaces;
 
@@ -10,10 +11,12 @@ namespace Yantra.Notifications.Services.Implementations;
 
 public class NotificationService(
     IOptions<SmtpOptions> smtpOptions,
+    IOptions<NotificationOptions> notificationOptions,
     ILogger<NotificationService> logger
 ) : INotificationService
 {
     private readonly SmtpOptions _smtpOptions = smtpOptions.Value;
+    private readonly NotificationOptions _notificationOptions = notificationOptions.Value;
 
     public async Task SendEmailNotification(
         string emailTo,
@@ -21,7 +24,26 @@ public class NotificationService(
         MessageBuilder message
     )
     {
-        var smtpClient = new SmtpClient("smtp.gmail.com")
+        var body = await GetEmailTemplateAsync(MessageType.Notification, message.FormattedMessage);
+
+        await SendEmailAsync(emailTo, subject, body);
+    }
+
+    public async Task SendEmailToSupport(SupportMessageBuilder message)
+    {
+        var body = await GetEmailTemplateAsync(MessageType.SupportRequest, message.FormattedMessage);
+        
+        await SendEmailAsync(_notificationOptions.SupportEmail, "Support Request", body);
+    }
+
+
+    private async Task SendEmailAsync(
+        string emailTo,
+        string subject,
+        string body
+    )
+    {
+        using var smtpClient = new SmtpClient(_smtpOptions.SmtpServer)
         {
             Port = _smtpOptions.SmtpPort,
             Credentials = new NetworkCredential(_smtpOptions.SmtpEmail, _smtpOptions.SmtpPassword),
@@ -32,10 +54,11 @@ public class NotificationService(
         {
             From = new MailAddress(_smtpOptions.SmtpEmail),
             Subject = subject,
-            Body = await GetEmailTemplateAsync(message.FormattedMessage),
+            Body = body,
             IsBodyHtml = true
         };
         mailMessage.To.Add(emailTo);
+
         try
         {
             await smtpClient.SendMailAsync(mailMessage);
@@ -50,7 +73,7 @@ public class NotificationService(
         {
             logger.LogError(
                 ex,
-                "Failed to send notification to '{emailTo}', subject '{subject}'",
+                "Failed to send email to '{emailTo}', subject '{subject}'",
                 emailTo,
                 subject
             );
@@ -59,10 +82,15 @@ public class NotificationService(
         }
     }
 
-    private async Task<string> GetEmailTemplateAsync(string content)
-    {
-        var filePath = "../Yantra.Notifications/Templates/NotificationTemplate.html";
 
+    private async Task<string> GetEmailTemplateAsync(
+        MessageType messageType,
+        string content
+    )
+    {
+        var basePath = "../Yantra.Notifications/Templates/";
+        var filePath = basePath + messageType + ".html";
+        
         var htmlTemplate = await File.ReadAllTextAsync(filePath);
         var finalHtml = htmlTemplate.Replace("{Content}", content);
 

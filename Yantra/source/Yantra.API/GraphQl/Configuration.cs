@@ -1,4 +1,6 @@
-﻿using HotChocolate.Execution.Configuration;
+﻿using System.Reflection;
+using HotChocolate.Execution.Configuration;
+using Yantra.GraphQl.Mutation;
 using Yantra.GraphQl.Subscription;
 using Yantra.GraphQl.Types;
 using Yantra.GraphQl.Types.MutationTypes;
@@ -33,6 +35,7 @@ public static class Configuration
             .AddTypeExtension<MenuItemMutationType>()
             .AddTypeExtension<UserMutationType>()
             .AddTypeExtension<OrderMutationType>()
+            .AddTypeExtension<SupportMutationType>()
             ;
 
         return requestExecutorBuilder;
