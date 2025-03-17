@@ -1,11 +1,12 @@
-﻿using MediatR;
+﻿using System.Text.Json.Serialization;
+using MediatR;
 using Yantra.Mongo.Models.Entities;
 using Yantra.Mongo.Models.Enums;
 using Yantra.Mongo.Repositories.Interfaces;
 
 namespace Yantra.Application.Features.MenuItems.Commands;
 
-public record AddMenuItemCommand(
+public record CreateMenuItemCommand(
     string Name,
     string Description,
     string Image,
@@ -13,13 +14,13 @@ public record AddMenuItemCommand(
     decimal Price
 ) : IRequest<bool>;
 
-public class AddMenuItemCommandHandler(
+public class CreateMenuItemCommandHandler(
     IMenuItemsRepository repository
-) : IRequestHandler<AddMenuItemCommand, bool>
+) : IRequestHandler<CreateMenuItemCommand, bool>
 {
-    public async Task<bool> Handle(AddMenuItemCommand request, CancellationToken cancellationToken)
+    public async Task<bool> Handle(CreateMenuItemCommand request, CancellationToken cancellationToken)
     {
-        var menuItem = new MenuItem
+        var menuItem = new MenuItemEntity
         {
             Name = request.Name,
             Description = request.Description,
@@ -28,7 +29,7 @@ public class AddMenuItemCommandHandler(
             Price = request.Price
         };
 
-        await repository.InsertOneAsync(menuItem);
+        await repository.InsertOneAsync(menuItem, cancellationToken);
 
         return true;
     }

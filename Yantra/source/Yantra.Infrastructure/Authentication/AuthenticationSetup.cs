@@ -17,7 +17,7 @@ public static class AuthenticationSetup
 
     private static readonly string[] AdminAccessPolicyRoles = [Role.Admin.ToString()];
     private static readonly string[] ManagerAccessPolicyRoles = [Role.Admin.ToString(), Role.Manager.ToString()];
-    private static readonly string[] CourierAccessPolicyRoles = [Role.Courier.ToString()];
+    private static readonly string[] CourierAccessPolicyRoles = [Role.Courier.ToString(), Role.Admin.ToString()];
 
     public static IServiceCollection AddJwtAuthentication(
         this IServiceCollection services,

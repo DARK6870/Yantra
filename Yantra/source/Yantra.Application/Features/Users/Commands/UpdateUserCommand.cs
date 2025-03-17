@@ -35,7 +35,7 @@ public class UpdateUserCommandHandler(
             Role = request.Role,
             PasswordHash = user.PasswordHash,
             SetPasswordToken = user.SetPasswordToken,
-            CreateDate = user.CreateDate,
+            DateCreated = user.DateCreated,
         };
 
         await usersRepository.ReplaceOneAsync(updatedUser, cancellationToken);

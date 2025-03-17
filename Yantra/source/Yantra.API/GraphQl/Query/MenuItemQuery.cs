@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using HotChocolate.Authorization;
+using MediatR;
 using Yantra.Application.Features.MenuItems.Queries;
 using Yantra.Mongo.Models.Entities;
 
@@ -10,7 +11,8 @@ public class MenuItemQuery
     [UseProjection]
     [UseFiltering]
     [UseSorting]
-    public async Task<List<MenuItem>> GetMenuItems(
+    [AllowAnonymous]
+    public async Task<List<MenuItemEntity>> GetMenuItems(
         [Service] IMediator mediator,
         CancellationToken cancellationToken
     )
@@ -19,7 +21,8 @@ public class MenuItemQuery
     }
 
     [UseProjection]
-    public async Task<MenuItem?> GetMenuItemByIdAsync(
+    [AllowAnonymous]
+    public async Task<MenuItemEntity?> GetMenuItemByIdAsync(
         [Service] IMediator mediator,
         string id,
         CancellationToken cancellationToken

@@ -2,7 +2,7 @@
 
 namespace Yantra.Mongo.Repositories.Interfaces;
 
-public interface IMenuItemsRepository : IGenericRepository<MenuItem>
+public interface IMenuItemsRepository : IGenericRepository<MenuItemEntity>
 {
     
 }

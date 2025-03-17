@@ -28,7 +28,7 @@ public class UpdateMenuItemCommandHandler(
         if (!await repository.ExistsAsync(request.Id, cancellationToken))
             throw new ApiErrorException("MenuItem does not exist", HttpStatusCode.NotFound);
         
-        var menuItem = new MenuItem()
+        var menuItem = new MenuItemEntity()
         {
             Id = request.Id,
             Name = request.Name,

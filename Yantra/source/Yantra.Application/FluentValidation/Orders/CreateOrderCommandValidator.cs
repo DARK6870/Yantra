@@ -33,10 +33,6 @@ public class CreateOrderCommandValidator : AbstractValidator<CreateOrderCommand>
             .Matches(@"^\d{9}$")
                 .WithMessage("Phone must consist of numbers only");
 
-        RuleFor(x => x.DeliveryPrice)
-            .GreaterThanOrEqualTo(0)
-                .WithMessage("Price must be greater than or equal to 0");
-
         RuleFor(x => x.OrderItems)
             .NotEmpty()
                 .WithMessage("OrderItems can not be empty");

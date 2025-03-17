@@ -16,8 +16,8 @@ public class OrderEntity : BaseEntity
     public required string CustomerEmail { get; set; }
     
     public required string CustomerPhone { get; set; }
-    
-    public string? OrderDetails { get; set; }
+
+    public string? OrderDetails { get; set; } = string.Empty;
 
     public List<OrderItem> OrderItems { get; set; } = [];
     

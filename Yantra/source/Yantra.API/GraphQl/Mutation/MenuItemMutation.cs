@@ -6,9 +6,9 @@ namespace Yantra.GraphQl.Mutation;
 [ExtendObjectType(typeof(Mutation))]
 public class MenuItemMutation
 {
-    public async Task<bool> AddMenuItem(
+    public async Task<bool> CreateMenuItem(
         [Service] IMediator mediator,
-        AddMenuItemCommand request,
+        CreateMenuItemCommand request,
         CancellationToken cancellationToken
     )
     {

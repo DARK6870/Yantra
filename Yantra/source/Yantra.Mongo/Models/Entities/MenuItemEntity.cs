@@ -7,7 +7,7 @@ using Yantra.Mongo.Models.Enums;
 namespace Yantra.Mongo.Models.Entities;
 
 [MongoCollection("menuItems")]
-public class MenuItem : BaseEntity
+public class MenuItemEntity : BaseEntity
 {
     public required string Name { get; set; }
     

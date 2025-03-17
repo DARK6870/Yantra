@@ -7,14 +7,14 @@ using Yantra.Mongo.Repositories.Interfaces;
 
 namespace Yantra.Application.Features.MenuItems.Queries;
 
-public record GetMenuItemByIdQuery(string Id) : IRequest<MenuItem?>;
+public record GetMenuItemByIdQuery(string Id) : IRequest<MenuItemEntity?>;
 
 public class GetMenuItemByIdQueryHandler(
     IMenuItemsRepository repository,
     IMemoryCache cache
-) : IRequestHandler<GetMenuItemByIdQuery, MenuItem?>
+) : IRequestHandler<GetMenuItemByIdQuery, MenuItemEntity?>
 {
-    public async Task<MenuItem?> Handle(GetMenuItemByIdQuery request, CancellationToken cancellationToken)
+    public async Task<MenuItemEntity?> Handle(GetMenuItemByIdQuery request, CancellationToken cancellationToken)
     {
         var cachedItems = await cache.GetOrCreateAsync(
             CacheConstants.MenuItemsCacheKey,

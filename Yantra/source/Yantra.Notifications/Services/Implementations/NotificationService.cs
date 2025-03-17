@@ -1,5 +1,7 @@
 ﻿using System.Net;
 using System.Net.Mail;
+using System.Reflection;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Yantra.Notifications.Builders;
@@ -12,7 +14,8 @@ namespace Yantra.Notifications.Services.Implementations;
 public class NotificationService(
     IOptions<SmtpOptions> smtpOptions,
     IOptions<NotificationOptions> notificationOptions,
-    ILogger<NotificationService> logger
+    ILogger<NotificationService> logger,
+    IWebHostEnvironment webHostEnvironment
 ) : INotificationService
 {
     private readonly SmtpOptions _smtpOptions = smtpOptions.Value;
@@ -88,8 +91,10 @@ public class NotificationService(
         string content
     )
     {
-        var basePath = "../Yantra.Notifications/Templates/";
-        var filePath = basePath + messageType + ".html";
+        var rootPath = webHostEnvironment.ContentRootPath;
+        
+        var templatesPath = Path.Combine(rootPath, "..", "Yantra.Notifications", "Templates");
+        var filePath = Path.Combine(templatesPath, messageType + ".html");
         
         var htmlTemplate = await File.ReadAllTextAsync(filePath);
         var finalHtml = htmlTemplate.Replace("{Content}", content);

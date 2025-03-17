@@ -10,6 +10,7 @@ public class UserQueryType : ObjectTypeExtension<UserQuery>
         if (!AuthenticationSetup.EnableSecurity)
             return;
         
+        descriptor.Authorize();
         descriptor.Authorize(AuthenticationSetup.AdminAccessPolicy);
     }
 }

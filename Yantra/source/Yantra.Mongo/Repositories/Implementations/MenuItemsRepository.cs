@@ -6,6 +6,6 @@ namespace Yantra.Mongo.Repositories.Implementations;
 
 public class MenuItemsRepository(
     IMongoDatabase database
-) : GenericRepository<MenuItem>(database), IMenuItemsRepository
+) : GenericRepository<MenuItemEntity>(database), IMenuItemsRepository
 {
 }

@@ -1,7 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
     <PropertyGroup>
-        <RootNamespace> Yantra</RootNamespace>
+        <RootNamespace>Yantra</RootNamespace>
+        <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     </PropertyGroup>
 
     <ItemGroup>
@@ -18,6 +19,12 @@
       <ProjectReference Include="..\Yantra.Infrastructure\Yantra.Infrastructure.csproj" />
       <ProjectReference Include="..\Yantra.Mongo.Migration\Yantra.Mongo.Migration.csproj" />
       <ProjectReference Include="..\Yantra.Notifications\Yantra.Notifications.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Include="..\..\.dockerignore">
+        <Link>.dockerignore</Link>
+      </Content>
     </ItemGroup>
 
 </Project>

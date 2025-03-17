@@ -6,7 +6,7 @@ namespace Yantra.GraphQl.Mutation;
 [ExtendObjectType(typeof(Mutation))]
 public class UserMutation
 {
-    public async Task<bool> AddUser(
+    public async Task<bool> CreateUser(
         [Service] IMediator mediator,
         CreateUserCommand request,
         CancellationToken cancellationToken)

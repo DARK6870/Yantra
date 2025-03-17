@@ -22,6 +22,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yantra.Notifications", "sou
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yantra.Mongo.Migration", "source\Yantra.Mongo.Migration\Yantra.Mongo.Migration.csproj", "{453204F8-8883-4DA3-9456-E8008EE35DEC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yantra.ServiceLevelTests", "tests\Yantra.ServiceLevelTests\Yantra.ServiceLevelTests.csproj", "{985A58A7-6028-4F47-A770-BF4AD966349A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -56,6 +58,10 @@ Global
 		{453204F8-8883-4DA3-9456-E8008EE35DEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{453204F8-8883-4DA3-9456-E8008EE35DEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{453204F8-8883-4DA3-9456-E8008EE35DEC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{985A58A7-6028-4F47-A770-BF4AD966349A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{985A58A7-6028-4F47-A770-BF4AD966349A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{985A58A7-6028-4F47-A770-BF4AD966349A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{985A58A7-6028-4F47-A770-BF4AD966349A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{02A91A40-CA55-4F60-93AC-5106E1A1F10B} = {B33AE918-F467-48DC-A09D-5F61D9EA81BB}
@@ -65,5 +71,6 @@ Global
 		{53091E53-1117-4DAA-8C1F-AC26C2878704} = {B33AE918-F467-48DC-A09D-5F61D9EA81BB}
 		{322AEED7-4270-4837-8675-2BDF8ED54667} = {B33AE918-F467-48DC-A09D-5F61D9EA81BB}
 		{453204F8-8883-4DA3-9456-E8008EE35DEC} = {B33AE918-F467-48DC-A09D-5F61D9EA81BB}
+		{985A58A7-6028-4F47-A770-BF4AD966349A} = {315BE4BC-7C7D-44B0-B3F4-40055E1FD645}
 	EndGlobalSection
 EndGlobal

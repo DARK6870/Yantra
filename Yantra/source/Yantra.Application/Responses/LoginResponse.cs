@@ -1,3 +1,3 @@
 ﻿namespace Yantra.Application.Responses;
 
-public record LoginResponse(string RefreshToke, string AccessToken);
+public record LoginResponse(string RefreshToken, string AccessToken);

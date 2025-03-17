@@ -53,7 +53,7 @@ public class LoginCommandHandler(
         }
 
         AddRefreshTokenToCookie(refreshToken.Token);
-        return new LoginResponse(accessToken, refreshToken.Token);
+        return new LoginResponse(refreshToken.Token, accessToken);
     }
 
     private void AddRefreshTokenToCookie(string refreshToken)

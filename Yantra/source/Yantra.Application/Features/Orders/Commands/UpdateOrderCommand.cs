@@ -13,10 +13,10 @@ namespace Yantra.Application.Features.Orders.Commands;
 public record UpdateOrderCommand(
     string Id,
     string CustomerAddress,
-    string? OrderDetails,
-    string? CourierName,
     OrderStatus Status,
-    List<OrderItem> OrderItems
+    List<OrderItem> OrderItems,
+    string? CourierName = null,
+    string? OrderDetails = null
 ) : IRequest<bool>;
 
 public class UpdateOrderCommandHandler(
@@ -30,8 +30,7 @@ public class UpdateOrderCommandHandler(
         var order = await ordersRepository.FindByIdAsync(request.Id, cancellationToken)
                     ?? throw new ApiErrorException("Order not found", HttpStatusCode.NotFound);
         
-        if (!string.IsNullOrEmpty(request.CourierName)
-            && ! await usersRepository.ExistsAsync(x => x.UserName == request.CourierName, cancellationToken))
+        if (!string.IsNullOrEmpty(request.CourierName) && ! await usersRepository.ExistsAsync(x => x.UserName == request.CourierName, cancellationToken))
             throw new ApiErrorException("Courier not found", HttpStatusCode.NotFound);
         
         order.CustomerAddress = request.CustomerAddress;

@@ -12,7 +12,7 @@ public class MenuItemMutationType : ObjectTypeExtension<MenuItemMutation>
         
         descriptor.Authorize();
         
-        descriptor.Field(x => x.AddMenuItem(null!, null!, CancellationToken.None))
+        descriptor.Field(x => x.CreateMenuItem(null!, null!, CancellationToken.None))
             .Authorize(AuthenticationSetup.AdminAccessPolicy);
         
         descriptor.Field(x => x.UpdateMenuItem(null!, null!, CancellationToken.None))

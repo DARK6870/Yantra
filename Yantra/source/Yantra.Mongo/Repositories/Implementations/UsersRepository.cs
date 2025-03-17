@@ -31,7 +31,7 @@ public class UsersRepository(
             x => x.Email == email,
             Builders<UserEntity>.Update
                 .Set(x => x.PasswordHash, passwordHash)
-                .Set(x => x.UpdateDate, DateTime.UtcNow)
+                .Set(x => x.DateUpdated, DateTime.UtcNow)
                 .Unset(x => x.SetPasswordToken)
         );
 

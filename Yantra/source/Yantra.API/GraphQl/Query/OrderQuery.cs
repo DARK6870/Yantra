@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using HotChocolate.Authorization;
+using MediatR;
 using Yantra.Application.Features.Orders.Queries;
 using Yantra.Application.Responses;
 using Yantra.Infrastructure.Common.Constants;
@@ -35,6 +36,7 @@ public class OrderQuery
     }
 
     [UseProjection]
+    [AllowAnonymous]
     public async Task<CustomerOrderResponse> GetCustomerOrderById(
         [Service] IMediator mediator,
         string id,

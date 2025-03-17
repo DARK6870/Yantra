@@ -49,3 +49,5 @@ app
 await app.ExecuteMigrations();
 
 app.Run();
+
+public partial class Program;

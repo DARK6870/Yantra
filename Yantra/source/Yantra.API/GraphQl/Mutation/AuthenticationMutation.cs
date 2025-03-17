@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using HotChocolate.Authorization;
+using MediatR;
 using Yantra.Application.Features.Authentication.Commands;
 using Yantra.Application.Responses;
 
@@ -7,6 +8,7 @@ namespace Yantra.GraphQl.Mutation;
 [ExtendObjectType(typeof(Mutation))]
 public class AuthenticationMutation
 {
+    [AllowAnonymous]
     public async Task<bool> SetPassword(
         [Service] IMediator mediator,
         SetPasswordCommand request,
@@ -16,6 +18,7 @@ public class AuthenticationMutation
         return await mediator.Send(request, cancellationToken);
     }
 
+    [AllowAnonymous]
     public async Task<bool> ChangePassword(
         [Service] IMediator mediator,
         ChangePasswordCommand request,
@@ -25,6 +28,7 @@ public class AuthenticationMutation
         return await mediator.Send(request, cancellationToken);
     }
     
+    [AllowAnonymous]
     public async Task<LoginResponse> Login(
         [Service] IMediator mediator,
         LoginCommand request,

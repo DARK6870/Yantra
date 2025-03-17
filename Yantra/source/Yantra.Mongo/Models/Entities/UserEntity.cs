@@ -21,10 +21,10 @@ public class UserEntity : BaseEntity
     public Role Role { get; set; }
     
     public string? PasswordHash { get; set; }
-
+    
     public string? SetPasswordToken { get; set; } = Guid.NewGuid().ToString();
     
-    public DateTime CreateDate { get; set; } = DateTime.UtcNow;
+    public DateTime DateCreated { get; set; } = DateTime.UtcNow;
     
-    public DateTime UpdateDate { get; set; } = DateTime.UtcNow;
+    public DateTime DateUpdated { get; set; } = DateTime.UtcNow;
 }

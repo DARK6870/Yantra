@@ -22,9 +22,8 @@ public record CreateOrderCommand(
     string CustomerAddress,
     string CustomerEmail,
     string CustomerPhone,
-    string? OrderDetails,
     List<OrderItem> OrderItems,
-    decimal DeliveryPrice
+    string? OrderDetails = null
 ) : IRequest<bool>;
 
 public class CreateOrderCommandHandler(
@@ -35,6 +34,8 @@ public class CreateOrderCommandHandler(
     ITopicEventSender eventSender
 ) : IRequestHandler<CreateOrderCommand, bool>
 {
+    private const decimal DeliveryPrice = 2.5m;
+    
     public async Task<bool> Handle(CreateOrderCommand request, CancellationToken cancellationToken)
     {
         var menuItems = await menuItemRepository
@@ -42,7 +43,16 @@ public class CreateOrderCommandHandler(
             .Where(x => request.OrderItems.Select(oi => oi.ItemName).Contains(x.Name))
             .ToListAsync(cancellationToken);
 
-        var order = new OrderEntity()
+        var itemsPrice = request.OrderItems.Sum(orderItem =>
+        {
+            var menuItem = menuItems.FirstOrDefault(mi => mi.Name == orderItem.ItemName)
+                           ?? throw new ApiErrorException($"Menu item '{orderItem.ItemName}' does not exist.", HttpStatusCode.BadRequest);
+            
+            return menuItem.Price * orderItem.Quantity;
+        });
+        var deliveryPrice = itemsPrice >= 25m ? 0m : DeliveryPrice;
+
+        var order = new OrderEntity
         {
             CustomerFullName = request.CustomerFullName,
             CustomerAddress = request.CustomerAddress,
@@ -50,15 +60,9 @@ public class CreateOrderCommandHandler(
             CustomerPhone = request.CustomerPhone,
             OrderDetails = request.OrderDetails,
             OrderItems = request.OrderItems,
-            DeliveryPrice = request.DeliveryPrice,
+            DeliveryPrice = deliveryPrice,
             Status = OrderStatus.Pending,
-            TotalPrice = request.OrderItems.Sum(orderItem =>
-            {
-                var menuItem = menuItems.FirstOrDefault(mi => mi.Name == orderItem.ItemName)
-                    ?? throw new ApiErrorException($"Menu item '{orderItem.ItemName}' does not exist.", HttpStatusCode.BadRequest);
-        
-                return menuItem.Price * orderItem.Quantity;
-            }) + request.DeliveryPrice
+            TotalPrice = itemsPrice + deliveryPrice
         };
 
 

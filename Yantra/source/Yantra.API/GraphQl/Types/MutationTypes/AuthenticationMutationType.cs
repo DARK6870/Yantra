@@ -9,13 +9,5 @@ public class AuthenticationMutationType : ObjectTypeExtension<AuthenticationMuta
     {
         if (!AuthenticationSetup.EnableSecurity)
             return;
-
-        descriptor
-            .Field(x => x.SetPassword(null!, null!, CancellationToken.None))
-            .Authorize();
-        
-        descriptor
-            .Field(x => x.ChangePassword(null!, null!, CancellationToken.None))
-            .Authorize();
     }
 }

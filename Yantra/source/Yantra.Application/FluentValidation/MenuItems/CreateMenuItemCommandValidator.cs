@@ -3,9 +3,9 @@ using Yantra.Application.Features.MenuItems.Commands;
 
 namespace Yantra.Application.FluentValidation.MenuItems;
 
-public class AddMenuItemCommandValidator : AbstractValidator<AddMenuItemCommand>
+public class CreateMenuItemCommandValidator : AbstractValidator<CreateMenuItemCommand>
 {
-    public AddMenuItemCommandValidator()
+    public CreateMenuItemCommandValidator()
     {
         RuleFor(x => x.Name)
             .NotEmpty()
