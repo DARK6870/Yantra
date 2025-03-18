@@ -11,7 +11,6 @@ public class MenuItemQuery
     [UseProjection]
     [UseFiltering]
     [UseSorting]
-    [AllowAnonymous]
     public async Task<List<MenuItemEntity>> GetMenuItems(
         [Service] IMediator mediator,
         CancellationToken cancellationToken
@@ -21,7 +20,6 @@ public class MenuItemQuery
     }
 
     [UseProjection]
-    [AllowAnonymous]
     public async Task<MenuItemEntity?> GetMenuItemByIdAsync(
         [Service] IMediator mediator,
         string id,

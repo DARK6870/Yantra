@@ -1,5 +1,4 @@
-﻿using HotChocolate.Authorization;
-using MediatR;
+﻿using MediatR;
 using Yantra.Application.Features.Orders.Commands;
 
 namespace Yantra.GraphQl.Mutation;
@@ -7,7 +6,6 @@ namespace Yantra.GraphQl.Mutation;
 [ExtendObjectType(typeof(Mutation))]
 public class OrderMutation
 {
-    [AllowAnonymous]
     public async Task<bool> CreateOrder(
         [Service] IMediator mediator,
         CreateOrderCommand request,

@@ -9,6 +9,10 @@ public class OrderQueryType : ObjectTypeExtension<OrderQuery>
     {
         if (!AuthenticationSetup.EnableSecurity)
             return;
+        
+        descriptor
+            .Field(x => x.GetCustomerOrderById(null!, null!, CancellationToken.None))
+            .AllowAnonymous();
 
         descriptor
             .Field(x => x.GetOrders(null!))

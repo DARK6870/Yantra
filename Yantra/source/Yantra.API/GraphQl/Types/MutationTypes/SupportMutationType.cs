@@ -10,5 +10,8 @@ public class SupportMutationType : ObjectTypeExtension<SupportMutation>
         if (!AuthenticationSetup.EnableSecurity)
             return;
 
+        descriptor
+            .Field(x => x.SubmitSupportRequest(null!, null!, CancellationToken.None))
+            .AllowAnonymous();
     }
 }

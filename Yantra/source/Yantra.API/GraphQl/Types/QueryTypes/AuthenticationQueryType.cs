@@ -9,5 +9,9 @@ public class AuthenticationQueryType : ObjectTypeExtension<AuthenticationQuery>
     {
         if (!AuthenticationSetup.EnableSecurity)
             return;
+
+        descriptor
+            .Field(x => x.RefreshAccessToken(null!, CancellationToken.None))
+            .AllowAnonymous();
     }
 }

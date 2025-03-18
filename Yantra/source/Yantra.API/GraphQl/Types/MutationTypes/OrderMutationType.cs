@@ -11,6 +11,10 @@ public class OrderMutationType : ObjectTypeExtension<OrderMutation>
             return;
         
         descriptor
+            .Field(x => x.CreateOrder(null!, null!, CancellationToken.None))
+            .AllowAnonymous();
+        
+        descriptor
             .Field(x => x.UpdateOrder(null!, null!, CancellationToken.None))
             .Authorize(AuthenticationSetup.ManagerAccessPolicy);
         

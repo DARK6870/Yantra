@@ -9,5 +9,11 @@ public class MenuItemQueryType : ObjectTypeExtension<MenuItemQuery>
     {
         if (!AuthenticationSetup.EnableSecurity)
             return;
+
+        descriptor.Field(x => x.GetMenuItems(null!, CancellationToken.None))
+            .AllowAnonymous();
+        
+        descriptor.Field(x => x.GetMenuItemByIdAsync(null!, null!, CancellationToken.None))
+            .AllowAnonymous();
     }
 }

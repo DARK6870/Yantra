@@ -18,7 +18,7 @@ public class ChangePasswordCommandHandler(
     public async Task<bool> Handle(ChangePasswordCommand request, CancellationToken cancellationToken)
     {
         if (await repository.GetUserByCredentialsAsync(request.Email, request.OldPassword) == null)
-            throw new ApiErrorException("Incorrect password", HttpStatusCode.BadRequest);
+            throw new ApiErrorException("Invalid credentials", HttpStatusCode.BadRequest);
 
         return await repository.UpdatePasswordAsync(request.Email, request.NewPassword);
     }

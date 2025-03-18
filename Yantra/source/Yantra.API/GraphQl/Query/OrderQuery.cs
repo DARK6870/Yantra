@@ -36,7 +36,6 @@ public class OrderQuery
     }
 
     [UseProjection]
-    [AllowAnonymous]
     public async Task<CustomerOrderResponse> GetCustomerOrderById(
         [Service] IMediator mediator,
         string id,
