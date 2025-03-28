@@ -1,0 +1,77 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yantra.API", "source\Yantra.API\Yantra.API.csproj", "{02A91A40-CA55-4F60-93AC-5106E1A1F10B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "source", "source", "{B33AE918-F467-48DC-A09D-5F61D9EA81BB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{315BE4BC-7C7D-44B0-B3F4-40055E1FD645}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yantra.Application", "source\Yantra.Application\Yantra.Application.csproj", "{74BF67D0-3BC3-483E-B73F-A16F22D2B4AA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yantra.Infrastructure", "source\Yantra.Infrastructure\Yantra.Infrastructure.csproj", "{9D859680-9AB9-4728-992C-445973D2821A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yantra.Mongo", "source\Yantra.Mongo\Yantra.Mongo.csproj", "{5676C87D-9A22-4B79-8F94-57624D98857C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "solution items", "solution items", "{F54D799D-5FCE-4E85-BEEA-2F3C5B6E9FDB}"
+	ProjectSection(SolutionItems) = preProject
+		Directory.Packages.props = Directory.Packages.props
+		Directory.Build.props = Directory.Build.props
+		.gitignore = .gitignore
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yantra.Notifications", "source\Yantra.Notifications\Yantra.Notifications.csproj", "{322AEED7-4270-4837-8675-2BDF8ED54667}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yantra.Mongo.Migration", "source\Yantra.Mongo.Migration\Yantra.Mongo.Migration.csproj", "{453204F8-8883-4DA3-9456-E8008EE35DEC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yantra.ServiceLevelTests", "tests\Yantra.ServiceLevelTests\Yantra.ServiceLevelTests.csproj", "{985A58A7-6028-4F47-A770-BF4AD966349A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{02A91A40-CA55-4F60-93AC-5106E1A1F10B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02A91A40-CA55-4F60-93AC-5106E1A1F10B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{02A91A40-CA55-4F60-93AC-5106E1A1F10B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{02A91A40-CA55-4F60-93AC-5106E1A1F10B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{74BF67D0-3BC3-483E-B73F-A16F22D2B4AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{74BF67D0-3BC3-483E-B73F-A16F22D2B4AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{74BF67D0-3BC3-483E-B73F-A16F22D2B4AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{74BF67D0-3BC3-483E-B73F-A16F22D2B4AA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9D859680-9AB9-4728-992C-445973D2821A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9D859680-9AB9-4728-992C-445973D2821A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9D859680-9AB9-4728-992C-445973D2821A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9D859680-9AB9-4728-992C-445973D2821A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5676C87D-9A22-4B79-8F94-57624D98857C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5676C87D-9A22-4B79-8F94-57624D98857C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5676C87D-9A22-4B79-8F94-57624D98857C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5676C87D-9A22-4B79-8F94-57624D98857C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{53091E53-1117-4DAA-8C1F-AC26C2878704}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{53091E53-1117-4DAA-8C1F-AC26C2878704}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{53091E53-1117-4DAA-8C1F-AC26C2878704}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{53091E53-1117-4DAA-8C1F-AC26C2878704}.Release|Any CPU.Build.0 = Release|Any CPU
+		{322AEED7-4270-4837-8675-2BDF8ED54667}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{322AEED7-4270-4837-8675-2BDF8ED54667}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{322AEED7-4270-4837-8675-2BDF8ED54667}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{322AEED7-4270-4837-8675-2BDF8ED54667}.Release|Any CPU.Build.0 = Release|Any CPU
+		{453204F8-8883-4DA3-9456-E8008EE35DEC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{453204F8-8883-4DA3-9456-E8008EE35DEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{453204F8-8883-4DA3-9456-E8008EE35DEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{453204F8-8883-4DA3-9456-E8008EE35DEC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{985A58A7-6028-4F47-A770-BF4AD966349A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{985A58A7-6028-4F47-A770-BF4AD966349A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{985A58A7-6028-4F47-A770-BF4AD966349A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{985A58A7-6028-4F47-A770-BF4AD966349A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{02A91A40-CA55-4F60-93AC-5106E1A1F10B} = {B33AE918-F467-48DC-A09D-5F61D9EA81BB}
+		{74BF67D0-3BC3-483E-B73F-A16F22D2B4AA} = {B33AE918-F467-48DC-A09D-5F61D9EA81BB}
+		{9D859680-9AB9-4728-992C-445973D2821A} = {B33AE918-F467-48DC-A09D-5F61D9EA81BB}
+		{5676C87D-9A22-4B79-8F94-57624D98857C} = {B33AE918-F467-48DC-A09D-5F61D9EA81BB}
+		{53091E53-1117-4DAA-8C1F-AC26C2878704} = {B33AE918-F467-48DC-A09D-5F61D9EA81BB}
+		{322AEED7-4270-4837-8675-2BDF8ED54667} = {B33AE918-F467-48DC-A09D-5F61D9EA81BB}
+		{453204F8-8883-4DA3-9456-E8008EE35DEC} = {B33AE918-F467-48DC-A09D-5F61D9EA81BB}
+		{985A58A7-6028-4F47-A770-BF4AD966349A} = {315BE4BC-7C7D-44B0-B3F4-40055E1FD645}
+	EndGlobalSection
+EndGlobal

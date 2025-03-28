@@ -1,0 +1,89 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Support Request</title>
+    <style>
+        body{
+            margin: 0;
+        }
+        .container{
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+            display: table;
+            margin: 0 auto;
+            align-items: center;
+            min-height: 50vh;
+            width: 100%;
+            text-align: center;
+            box-sizing: border-box;
+        }
+
+        .message-container {
+            display: inline-block;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            min-width: 50%;
+            max-width: 600px;
+            min-height: 300px;
+        }
+
+        .header {
+            background-color: #db5f78;
+            color: white;
+            padding: 15px;
+            font-size: 20px;
+            border-radius: 8px 8px 0 0;
+        }
+
+        .content {
+            padding: 0px 20px 20px 20px;
+            font-size: 16px;
+            color: #333;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 10px;
+            font-size: 12px;
+            color: #777;
+        }
+
+        @media (max-width: 500px) {
+            .message-container {
+                min-width: 90%;
+            }
+
+            .header {
+                font-size: 16px;
+            }
+
+            .content {
+                font-size: 12px;
+            }
+
+            .footer {
+                font-size: 10px;
+            }
+        }
+    </style>
+</head>
+<div class="container">
+    <div class="message-container">
+        <div class="header">
+            🔧 Support request
+        </div>
+        <div class="content">
+            {Content}
+        </div>
+        <div class="footer">
+            &copy; 2025 Yantra Notifications. All rights reserved.
+        </div>
+    </div>
+</div>
+</html>
