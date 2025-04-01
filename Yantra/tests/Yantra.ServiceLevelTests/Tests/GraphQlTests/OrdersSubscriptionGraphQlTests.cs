@@ -16,7 +16,6 @@ using Yantra.ServiceLevelTests.Shared.Collections;
 using Yantra.ServiceLevelTests.Shared.Constants.GraphQl;
 using Yantra.ServiceLevelTests.Shared.Factory;
 using Yantra.ServiceLevelTests.Shared.Helpers;
-using Yantra.ServiceLevelTests.Shared.Responses.Orders;
 
 namespace Yantra.ServiceLevelTests.Tests.GraphQlTests;
 
