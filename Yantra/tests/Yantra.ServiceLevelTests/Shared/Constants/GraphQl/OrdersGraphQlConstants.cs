@@ -77,31 +77,6 @@ public static class OrdersGraphQlConstants
     }
     """;
 
-  public const string OnOrderUpdatesSubscription =
-    """
-    subscription orderUpdates{
-      onOrderUpdates{
-        id
-        customerFullName
-        customerEmail
-        customerPhone
-        customerAddress
-        courierName
-        orderDetails
-        orderItems {
-          itemName
-          price
-          quantity
-        }
-        status
-        deliveryPrice
-        totalPrice
-        dateCreated
-        dateUpdated
-      }
-    }
-    """;
-
   public const string CreateOrderMutation =
     """
     mutation createOrder($request: CreateOrderCommandInput!){

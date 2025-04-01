@@ -1,10 +1,14 @@
 ﻿using System.Reflection;
+using HotChocolate.AspNetCore;
+using HotChocolate.AspNetCore.Subscriptions;
+using HotChocolate.AspNetCore.Subscriptions.Protocols;
 using HotChocolate.Execution.Configuration;
 using Yantra.GraphQl.Mutation;
 using Yantra.GraphQl.Subscription;
 using Yantra.GraphQl.Types;
 using Yantra.GraphQl.Types.MutationTypes;
 using Yantra.GraphQl.Types.QueryTypes;
+using Yantra.GraphQl.Types.SubscriptionTypes;
 
 namespace Yantra.GraphQl;
 
@@ -47,7 +51,7 @@ public static class Configuration
     {
         requestExecutorBuilder
             .AddSubscriptionType<Subscription.Subscription>()
-            .AddTypeExtension<OrderSubscription>()
+            .AddTypeExtension<OrderSubscriptionType>()
             ;
 
         return requestExecutorBuilder;

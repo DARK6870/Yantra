@@ -20,8 +20,12 @@ namespace Yantra.ServiceLevelTests.Tests.GraphQlTests;
 [Trait("Category", "SmokeTest")]
 public class MenuItemsGraphQlTests(YantraWebApplicationFactory factory)
 {
+    #region Init
+    
     private readonly IMenuItemsRepository _menuItemsRepository = factory.GetRequiredService<IMenuItemsRepository>();
     private readonly GraphQLHttpClient _client = factory.CreateAdminGraphQlHttpClient();
+    
+    #endregion
     
     [Fact(DisplayName = "Get Menu Items; Should return menu items")]
     public async Task GetMenuItems_ShouldReturnMenuItems()

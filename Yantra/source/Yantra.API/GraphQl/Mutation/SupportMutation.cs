@@ -4,7 +4,7 @@ using Yantra.Application.Features.Support.Commands;
 
 namespace Yantra.GraphQl.Mutation;
 
-[ExtendObjectType(typeof(Mutation))]
+[ExtendObjectType(nameof(Mutation))]
 public class SupportMutation
 {
     public async Task<bool> SubmitSupportRequest(

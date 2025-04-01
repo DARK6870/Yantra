@@ -19,9 +19,13 @@ namespace Yantra.ServiceLevelTests.Tests.GraphQlTests;
 [Trait("Category", "SmokeTest")]
 public class UsersGraphQlTests(YantraWebApplicationFactory factory)
 {
+    #region Init
+    
     private readonly IUsersRepository _usersRepository = factory.GetRequiredService<IUsersRepository>();
     private readonly GraphQLHttpClient _client = factory.CreateAdminGraphQlHttpClient();
 
+    #endregion
+    
     [Fact(DisplayName = "Get Users; Should return users")]
     public async Task GetUsers_ShouldReturnUsers()
     {

@@ -4,6 +4,7 @@ using MediatR;
 using Microsoft.AspNetCore.Http;
 using MongoDB.Driver.Linq;
 using Yantra.Application.Constants;
+using Yantra.Application.Helpers;
 using Yantra.Infrastructure.Common.Constants;
 using Yantra.Infrastructure.Common.Exceptions;
 using Yantra.Infrastructure.Common.Extensions;
@@ -34,23 +35,17 @@ public class CreateOrderCommandHandler(
     ITopicEventSender eventSender
 ) : IRequestHandler<CreateOrderCommand, bool>
 {
-    private const decimal DeliveryPrice = 2.5m;
-    
     public async Task<bool> Handle(CreateOrderCommand request, CancellationToken cancellationToken)
     {
-        var menuItems = await menuItemRepository
+        var menuItems = menuItemRepository
             .AsQueryable()
-            .Where(x => request.OrderItems.Select(oi => oi.ItemName).Contains(x.Name))
-            .ToListAsync(cancellationToken);
+            .Where(x => request.OrderItems.Select(oi => oi.ItemName).Contains(x.Name));
 
-        var itemsPrice = request.OrderItems.Sum(orderItem =>
-        {
-            var menuItem = menuItems.FirstOrDefault(mi => mi.Name == orderItem.ItemName)
-                           ?? throw new ApiErrorException($"Menu item '{orderItem.ItemName}' does not exist.", HttpStatusCode.BadRequest);
-            
-            return menuItem.Price * orderItem.Quantity;
-        });
-        var deliveryPrice = itemsPrice >= 25m ? 0m : DeliveryPrice;
+        request.OrderItems
+            .ForEach(x => x.Price = menuItems.First(m => m.Name == x.ItemName).Price * x.Quantity);
+
+        var itemsPrice = request.OrderItems.Sum(x => x.Price)
+                         ?? throw new ApiErrorException("Failed to create order", HttpStatusCode.InternalServerError);
 
         var order = new OrderEntity
         {
@@ -60,12 +55,10 @@ public class CreateOrderCommandHandler(
             CustomerPhone = request.CustomerPhone,
             OrderDetails = request.OrderDetails,
             OrderItems = request.OrderItems,
-            DeliveryPrice = deliveryPrice,
-            Status = OrderStatus.Pending,
-            TotalPrice = itemsPrice + deliveryPrice
+            Status = OrderStatus.Pending
         };
-
-
+        
+        order.SetDeliveryAndTotalPrice(itemsPrice);
         await ordersRepository.InsertOneAsync(order, cancellationToken);
         await eventSender.SendAsync(GraphQlConstants.OrderEventsTopicName, order.Id, cancellationToken);
         await SendOrderCreatedEmailAsync(order);

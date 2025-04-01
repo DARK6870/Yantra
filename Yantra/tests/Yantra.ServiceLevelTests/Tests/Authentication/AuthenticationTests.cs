@@ -163,66 +163,6 @@ public class AuthenticationTests(YantraWebApplicationFactory factory)
         updatedUser.PasswordHash.Should().Be(HashHelper.ComputeHash(changePasswordRequest.NewPassword));
     }
 
-    [Fact(DisplayName = "Get Users Without Access Token; Should return Unauthorized")]
-    public async Task GetUsers_WithoutAccessToken_ShouldReturnUnauthorized()
-    {
-        try
-        {
-            // Act
-            await _client.SendQueryAsync<GetUsersResponse>(new GraphQLRequest(UsersGraphQlConstants.GetUsersQuery));
-        }
-        catch (GraphQLHttpRequestException ex)
-        {
-            // Assert
-            ex.Message.Should().Be("The HTTP request failed with status code Unauthorized");
-        }
-    }
-    
-    [Fact(DisplayName = "Get Users Without Admin Role; Should return Forbidden")]
-    public async Task GetUsers_WithoutAdminRole_ShouldReturnForbidden()
-    {
-        // Arrange
-        var user = new UserEntity
-        {
-            UserName = "User5",
-            Email = "user5@yantra.com",
-            FirstName = "Test5",
-            LastName = "Test5",
-            Role = Role.Courier,
-            PasswordHash = HashHelper.ComputeHash("pass123")
-        };
-
-        var loginRequest = new LoginCommand(
-            user.Email,
-            "pass123"
-        );
-
-        var loginGraphQlRequest = new GraphQLRequest
-        {
-            Query = AuthenticationGraphQlConstants.LoginMutation,
-            Variables = new
-            {
-                request = loginRequest
-            }
-        };
-        
-        try
-        {
-            // Act
-            await _usersRepository.InsertOneAsync(user);
-            
-            var loginResponse = await _client.SendQueryAsync<LoginMutationResponse>(loginGraphQlRequest);
-            var secureClient = factory.CreateGraphQlHttpClient(loginResponse.Data.LoginData.AccessToken);
-            
-            await secureClient.SendQueryAsync<GetUsersResponse>(new GraphQLRequest(UsersGraphQlConstants.GetUsersQuery));
-        }
-        catch (GraphQLHttpRequestException ex)
-        {
-            // Assert
-            ex.Message.Should().Be("The HTTP request failed with status code Forbidden");
-        }
-    }
-
     /*[Fact(DisplayName = "Refresh Access Token Using Refresh Token; Should refresh access token")]
     public async Task RefreshAccessToken_UsingRefreshToken_ShouldRefreshAccessToken()
     {

@@ -3,7 +3,7 @@ using Yantra.Application.Features.Users.Commands;
 
 namespace Yantra.GraphQl.Mutation;
 
-[ExtendObjectType(typeof(Mutation))]
+[ExtendObjectType(nameof(Mutation))]
 public class UserMutation
 {
     public async Task<bool> CreateUser(

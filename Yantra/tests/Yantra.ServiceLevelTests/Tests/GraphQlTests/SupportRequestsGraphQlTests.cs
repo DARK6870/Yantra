@@ -14,7 +14,11 @@ namespace Yantra.ServiceLevelTests.Tests.GraphQlTests;
 [Trait("Category", "SmokeTest")]
 public class SupportRequestsGraphQlTests(YantraWebApplicationFactory factory)
 {
+    #region Init
+
     private readonly GraphQLHttpClient _client = factory.CreateGraphQlHttpClient();
+
+    #endregion
 
     [Fact(DisplayName = "Submit Support Request; Should return successful response")]
     public async Task SubmitSupportRequest_ShouldReturnSuccessfulResponse()

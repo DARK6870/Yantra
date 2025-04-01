@@ -4,7 +4,7 @@ using Yantra.Application.Responses;
 
 namespace Yantra.GraphQl.Mutation;
 
-[ExtendObjectType(typeof(Mutation))]
+[ExtendObjectType(nameof(Mutation))]
 public class AuthenticationMutation
 {
     public async Task<bool> SetPassword(

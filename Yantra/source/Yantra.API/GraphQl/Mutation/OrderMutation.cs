@@ -3,7 +3,7 @@ using Yantra.Application.Features.Orders.Commands;
 
 namespace Yantra.GraphQl.Mutation;
 
-[ExtendObjectType(typeof(Mutation))]
+[ExtendObjectType(nameof(Mutation))]
 public class OrderMutation
 {
     public async Task<bool> CreateOrder(

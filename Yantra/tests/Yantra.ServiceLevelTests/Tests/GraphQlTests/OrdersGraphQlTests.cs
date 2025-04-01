@@ -1,12 +1,8 @@
-﻿using System.Reactive.Linq;
-using System.Reactive.Threading.Tasks;
-using System.Text.Json;
+﻿using System.Text.Json;
 using FluentAssertions;
 using GraphQL;
-using GraphQL.Client.Abstractions.Websocket;
 using GraphQL.Client.Http;
 using MongoDB.Driver.Linq;
-using Xunit.Abstractions;
 using Yantra.Application.Features.Orders.Commands;
 using Yantra.Mongo.Models;
 using Yantra.Mongo.Models.Entities;
@@ -24,11 +20,12 @@ namespace Yantra.ServiceLevelTests.Tests.GraphQlTests;
 [Trait("Category", "SmokeTest")]
 public class OrdersGraphQlTests(YantraWebApplicationFactory factory)
 {
+    #region Init
+    
     private readonly IOrdersRepository _ordersRepository = factory.GetRequiredService<IOrdersRepository>();
     private readonly GraphQLHttpClient _client = factory.CreateAdminGraphQlHttpClient();
-
-    private const string ItemName = "Pizza Prosciutto";
-    private const decimal ItemPrice = 10m;
+    
+    #endregion
     
     [Fact(DisplayName = "Get Orders; Should return orders")]
     public async Task GetOrders_ShouldReturnOrders()
@@ -44,8 +41,8 @@ public class OrdersGraphQlTests(YantraWebApplicationFactory factory)
             [
                 new OrderItem
                 {
-                    ItemName = ItemName,
-                    Price = ItemPrice,
+                    ItemName = TestDataMigrationHelper.ItemName,
+                    Price = TestDataMigrationHelper.ItemPrice,
                     Quantity = 2
                 }
             ],
@@ -81,8 +78,8 @@ public class OrdersGraphQlTests(YantraWebApplicationFactory factory)
             [
                 new OrderItem
                 {
-                    ItemName = ItemName,
-                    Price = ItemPrice,
+                    ItemName = TestDataMigrationHelper.ItemName,
+                    Price = TestDataMigrationHelper.ItemPrice,
                     Quantity = 2
                 }
             ],
@@ -104,7 +101,6 @@ public class OrdersGraphQlTests(YantraWebApplicationFactory factory)
         await _ordersRepository.InsertOneAsync(order);
         var getOrderByIdResponse = await _client.SendQueryAsync<GetOrderByIdResponse>(getOrderByIdGraphQlRequest);
 
-        // Assert
         // Assert
         getOrderByIdResponse.Data.Should().NotBeNull();
         getOrderByIdResponse.Data.Order.Should().NotBeNull();
@@ -131,8 +127,8 @@ public class OrdersGraphQlTests(YantraWebApplicationFactory factory)
             [
                 new OrderItem
                 {
-                    ItemName = ItemName,
-                    Price = ItemPrice,
+                    ItemName = TestDataMigrationHelper.ItemName,
+                    Price = TestDataMigrationHelper.ItemPrice,
                     Quantity = 2
                 }
             ],
@@ -172,7 +168,7 @@ public class OrdersGraphQlTests(YantraWebApplicationFactory factory)
             [
                 new OrderItem
                 {
-                    ItemName = ItemName,
+                    ItemName = TestDataMigrationHelper.ItemName,
                     Quantity = 3
                 }
             ]
@@ -196,7 +192,7 @@ public class OrdersGraphQlTests(YantraWebApplicationFactory factory)
         createOrderResponse.Errors.Should().BeNull();
         
         order.Should().NotBeNull();
-        order.TotalPrice.Should().Be(ItemPrice * createOrderRequest.OrderItems.First().Quantity);
+        order.TotalPrice.Should().Be(TestDataMigrationHelper.ItemPrice * createOrderRequest.OrderItems.First().Quantity);
     }
 
     [Fact(DisplayName = "Update Order; Should update order")]
@@ -213,8 +209,8 @@ public class OrdersGraphQlTests(YantraWebApplicationFactory factory)
             [
                 new OrderItem
                 {
-                    ItemName = ItemName,
-                    Price = ItemPrice,
+                    ItemName = TestDataMigrationHelper.ItemName,
+                    Price = TestDataMigrationHelper.ItemPrice,
                     Quantity = 1
                 }
             ],
@@ -270,8 +266,8 @@ public class OrdersGraphQlTests(YantraWebApplicationFactory factory)
             [
                 new OrderItem
                 {
-                    ItemName = ItemName,
-                    Price = ItemPrice,
+                    ItemName = TestDataMigrationHelper.ItemName,
+                    Price = TestDataMigrationHelper.ItemPrice,
                     Quantity = 1
                 }
             ],
@@ -314,55 +310,4 @@ public class OrdersGraphQlTests(YantraWebApplicationFactory factory)
                 .When(x => x.Path.EndsWith(nameof(order.DateCreated)))
         );
     }
-
-    /*[Fact(DisplayName = "Subscribe on Order Updates; Should return updates after new order creation")]
-    public async Task SubscribeOnOrderUpdates_ShouldReturnUpdatesAfterNewOrderCreation()
-    {
-        // Arrange
-        var createOrderRequest = new CreateOrderCommand(
-            "Oren Gabay",
-            "str. Valise Alecsandri 32/2",
-            "oren.gabay@yantra.com",
-            "069077777",
-            [
-                new OrderItem
-                {
-                    ItemName = ItemName,
-                    Quantity = 1
-                }
-            ]
-        );
-
-        var createOrderGraphQlRequest = new GraphQLRequest
-        {
-            Query = OrdersGraphQlConstants.CreateOrderMutation,
-            Variables = new
-            {
-                request = createOrderRequest
-            }
-        };
-
-        // Act
-        var orderUpdatesSubscription = _client.CreateSubscriptionStream<OnOrderUpdatesResponse>(
-            new GraphQLRequest(OrdersGraphQlConstants.OnOrderUpdatesSubscription)
-        );
-        
-        var subscription1 = orderUpdatesSubscription.Subscribe(response =>
-        {
-            Console.WriteLine(response.ToString());
-        });
-
-        var update = await orderUpdatesSubscription.FirstOrDefaultAsync().Timeout(TimeSpan.FromSeconds(5));
-        
-        var createOrderResponse = await _client.SendMutationAsync<JsonDocument>(createOrderGraphQlRequest);
-        
-        await Task.Delay(-1);
-        // Assert
-        createOrderResponse.Errors.Should().BeNull();
-        
-        update.Should().NotBeNull();
-        update.Data.Should().NotBeNull();
-        update.Data.Order.Should().NotBeNull();
-        update.Data.Order.CustomerFullName.Should().Be(createOrderRequest.CustomerFullName);
-    }*/
 }

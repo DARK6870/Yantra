@@ -11,7 +11,7 @@ public class OrderSubscriptionType : ObjectTypeExtension<OrderSubscription>
             return;
 
         descriptor
-            .Field(x => x.OnOrderUpdates(null!))
+            .Field(x => x.SubscribeOnOrderUpdates(null!))
             .Authorize();
     }
 }

@@ -1,11 +1,7 @@
-﻿using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc.Testing;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.Hosting;
 using Testcontainers.MongoDb;
-using Yantra.Mongo.Models.Entities;
-using Yantra.Mongo.Models.Enums;
-using Yantra.Mongo.Repositories.Interfaces;
+using Yantra.ServiceLevelTests.Shared.Helpers;
 
 namespace Yantra.ServiceLevelTests.Shared.Factory;
 
@@ -29,30 +25,11 @@ public class YantraWebApplicationFactory : WebApplicationFactory<Program>, IAsyn
 
     public async Task InitializeAsync()
     {
+        // Start Containers
         await _mongoDbContainer.StartAsync();
-
-        var menuItemsRepository = Services.GetRequiredService<IMenuItemsRepository>();
-        var menuItem = new MenuItemEntity
-        {
-            Name = "Pizza Prosciutto",
-            Description = "Pizza Prosciutto",
-            Image = "pizza-prosciutto.png",
-            Type = ItemType.Dish,
-            Price = 10m
-        };
         
-        var usersRepository = Services.GetRequiredService<IUsersRepository>();
-        var user = new UserEntity
-        {
-            Email = "courier@yantra.com",
-            FirstName = "John",
-            LastName = "Doe",
-            Role = Role.Courier,
-            UserName = "test-courier"
-        };
-
-        await usersRepository.InsertOneAsync(user);
-        await menuItemsRepository.InsertOneAsync(menuItem);
+        // Add Some Test Data
+        await Services.MigrateTestData();
     }
 
     public new async Task DisposeAsync()

@@ -3,7 +3,7 @@ using Yantra.Application.Features.MenuItems.Commands;
 
 namespace Yantra.GraphQl.Mutation;
 
-[ExtendObjectType(typeof(Mutation))]
+[ExtendObjectType(nameof(Mutation))]
 public class MenuItemMutation
 {
     public async Task<bool> CreateMenuItem(

@@ -4,7 +4,7 @@ using Yantra.Mongo.Models.Entities;
 
 namespace Yantra.GraphQl.Query;
 
-[ExtendObjectType(typeof(Query))]
+[ExtendObjectType(nameof(Query))]
 public class UserQuery
 {
     [UseProjection]
