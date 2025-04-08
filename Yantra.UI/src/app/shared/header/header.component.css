@@ -1,0 +1,117 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+header {
+  width: 100%;
+  background-size: cover;
+}
+
+.content {
+  width: 94%;
+  margin: 4em auto;
+  font-size: 20px;
+  line-height: 30px;
+  text-align: justify;
+}
+
+.logo {
+  line-height: 60px;
+  position: fixed;
+  float: left;
+  margin: 16px 46px;
+  color: var(--yantra-text-light);
+  font-weight: bold;
+  font-size: 20px;
+  letter-spacing: 2px;
+}
+
+nav {
+  position: fixed;
+  width: 100%;
+  line-height: 60px;
+  box-decoration-break: clone;
+  z-index: 99;
+}
+
+nav ul {
+  line-height: 60px;
+  list-style: none;
+  background: rgba(0, 0, 0, 0);
+  overflow: hidden;
+  color: var(--yantra-text-light);
+  padding: 0;
+  text-align: right;
+  margin: 0;
+  padding-right: 40px;
+  transition: 1s;
+}
+
+nav.black ul {
+  background: var(--yantra-primary-dark);
+}
+
+nav ul li {
+  display: inline-block;
+  padding: 16px 40px;;
+}
+
+nav ul li a {
+  text-decoration: none;
+  color: var(--yantra-text-light);
+  font-size: 16px;
+}
+
+.menu-icon {
+  line-height: 60px;
+  width: 100%;
+  background: var(--yantra-primary-dark);
+  text-align: right;
+  box-sizing: border-box;
+  padding: 15px 24px;
+  cursor: pointer;
+  color: var(--yantra-text-light);
+  display: none;
+}
+
+@media(max-width: 768px) {
+  nav ul {
+    max-height: 0;
+    background: var(--yantra-primary-dark);
+    width: 100%;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    right: 0;
+    transition: max-height 0.5s ease-out;
+    overflow: hidden;
+  }
+
+  .showing {
+    max-height: 500px;
+  }
+
+  nav ul li {
+    display: block;
+    width: 100%;
+    padding: 15px 0;
+    text-align: center;
+  }
+
+  .menu-icon {
+    display: block;
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: 10;
+  }
+
+  .logo {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10;
+  }
+}

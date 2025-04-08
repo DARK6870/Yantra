@@ -1,1 +1,11 @@
-/* You can add global styles to this file, and also import other style files */
+body{
+  background-color: #131313
+}
+
+:root {
+  --yantra-primary-dark: #000000;
+  --yantra-primary-accent: #b68b40;
+  --yantra-text-light: #e6e6e6;
+  --yantra-text-gray: #c7c7c7;
+  --yantra-text-gold: #d4af37;
+}
