@@ -6,15 +6,6 @@ html, body {
 
 header {
   width: 100%;
-  background-size: cover;
-}
-
-.content {
-  width: 94%;
-  margin: 4em auto;
-  font-size: 20px;
-  line-height: 30px;
-  text-align: justify;
 }
 
 .logo {
@@ -26,14 +17,15 @@ header {
   font-weight: bold;
   font-size: 20px;
   letter-spacing: 2px;
+  font-family: 'Segoe UI', sans-serif;
+  z-index: 11;
 }
 
 nav {
   position: fixed;
   width: 100%;
   line-height: 60px;
-  box-decoration-break: clone;
-  z-index: 99;
+  z-index: 9;
 }
 
 nav ul {
@@ -46,7 +38,7 @@ nav ul {
   text-align: right;
   margin: 0;
   padding-right: 40px;
-  transition: 1s;
+  transition: background 0.5s;
 }
 
 nav.black ul {
@@ -55,7 +47,7 @@ nav.black ul {
 
 nav ul li {
   display: inline-block;
-  padding: 16px 40px;;
+  padding: 16px 40px;
 }
 
 nav ul li a {
@@ -74,9 +66,10 @@ nav ul li a {
   cursor: pointer;
   color: var(--yantra-text-light);
   display: none;
+  z-index: 10;
 }
 
-@media(max-width: 768px) {
+@media (max-width: 768px) {
   nav ul {
     max-height: 0;
     background: var(--yantra-primary-dark);
@@ -85,12 +78,18 @@ nav ul li a {
     top: 60px;
     left: 0;
     right: 0;
-    transition: max-height 0.5s ease-out;
+    padding-right: 0;
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: transform 0.4s cubic-bezier(0.77, 0, 0.175, 1);
+    background: var(--yantra-primary-dark);
     overflow: hidden;
   }
 
-  .showing {
+  nav ul.showing {
     max-height: 500px;
+    padding: 0;
+    transform: scaleY(1);
   }
 
   nav ul li {
@@ -98,20 +97,17 @@ nav ul li a {
     width: 100%;
     padding: 15px 0;
     text-align: center;
+    margin: 0;
   }
 
   .menu-icon {
     display: block;
     position: fixed;
-    right: 0;
     top: 0;
-    z-index: 10;
+    right: 0;
   }
 
   .logo {
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 10;
+    margin-left: 20px;
   }
 }

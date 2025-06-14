@@ -1,3 +1,50 @@
-<div class="main-image-container">
-  <img class="main-image" src="images/main-image.png" alt="main-image">
+<!-- Primary Block -->
+<div class="hero-container" @fadeIn>
+  <img class="hero-image" src="images/main-image.png" alt="Italian restaurant interior">
+
+  <div class="hero-content">
+    <h1 class="hero-title">{{ currentTitle }}</h1>
+    <p class="hero-subtitle">An Italian restaurant with a legacy of flavor</p>
+    <button class="hero-button" routerLink="/menu">Go to Menu</button>
+  </div>
 </div>
+
+<!-- Block 1: Tradition & Passion -->
+<section class="tradition-section">
+  <div class="container">
+    <div class="content-wrapper">
+      <div class="text-content">
+        <h2 class="section-title">A Legacy of Flavor Since 1985</h2>
+        <p class="section-description">Our master chefs preserve the secrets of authentic Italian cuisine passed through generations. Each pizza is baked in our wood-fired oven at 485°C, while our pasta is crafted exclusively from durum wheat flour sourced from Emilia-Romagna farms.</p>
+        <div class="signature">
+          <span class="signature-text">Chef Tomeri</span>
+        </div>
+      </div>
+      <div class="image-content">
+        <img src="images/pizza-chef.png" alt="Artisan pizza preparation" class="feature-image">
+        <div class="image-caption">Authentic Neapolitan pizza</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Block 2: Awards & Recognition -->
+<section class="awards-section">
+  <div class="container">
+    <div class="content-wrapper reversed">
+      <div class="image-content">
+        <img src="images/best-italian-restaurant-award.png" alt="Best Italian restaurant award" class="feature-image">
+        <div class="image-caption">Best Italian Restaurants 2020</div>
+      </div>
+      <div class="text-content">
+        <h2 class="section-title">Excellence Recognized</h2>
+        <p class="section-description">Awarded 3 stars by Gambero Rosso and the "Golden Fork" distinction. Our Piedmont wine cellar and truffle menu received top honors from Wine Spectator.</p>
+        <ul class="awards-list">
+          <li>TimeOut's Best Restaurant in Moscow</li>
+          <li>3 Gambero Rosso Stars</li>
+          <li>Chefs' Choice Award 2022</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>

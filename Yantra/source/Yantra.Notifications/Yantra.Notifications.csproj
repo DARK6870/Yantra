@@ -13,11 +13,4 @@
     <ItemGroup>
       <PackageVersion Update="Microsoft.Extensions.DependencyInjection" Version="9.0.2" />
     </ItemGroup>
-
-    <ItemGroup>
-      <Reference Include="Microsoft.AspNetCore.Hosting.Abstractions">
-        <HintPath>..\..\..\..\..\..\.dotnet\shared\Microsoft.AspNetCore.App\8.0.11\Microsoft.AspNetCore.Hosting.Abstractions.dll</HintPath>
-      </Reference>
-    </ItemGroup>
-
 </Project>

@@ -1,41 +1,37 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import {RouterLink} from '@angular/router';
 
 @Component({
   selector: 'app-header',
-  imports: [],
+  standalone: true,
+  imports: [CommonModule, RouterLink],
   templateUrl: './header.component.html',
-  styleUrl: './header.component.css'
+  styleUrls: ['./header.component.css']
 })
 export class HeaderComponent {
+  isMenuOpen = false;
+  isScrolled = false;
 
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-  const menuIcon = document.querySelector(".menu-icon") as HTMLElement;
-  const navUl = document.querySelector("nav ul") as HTMLUListElement;
-  const nav = document.querySelector("nav") as HTMLElement;
-
-  if (menuIcon) {
-    menuIcon.addEventListener("click", (e) => {
-      e.stopPropagation();
-      navUl.classList.toggle("showing");
-    });
+  toggleMenu(event: Event) {
+    event.stopPropagation();
+    this.isMenuOpen = !this.isMenuOpen;
   }
 
-  // Закрывать меню при клике вне его
-  document.addEventListener('click', (e) => {
-    if (!(e.target as Element).closest('nav ul') && !(e.target as Element).closest('.menu-icon')) {
-      navUl.classList.remove("showing");
-    }
-  });
+  closeMenu() {
+    this.isMenuOpen = false;
+  }
 
-  window.addEventListener("scroll", () => {
-    if (nav) {
-      if (window.scrollY > 0) {
-        nav.classList.add('black');
-      } else {
-        nav.classList.remove('black');
-      }
+  @HostListener('window:scroll')
+  onWindowScroll() {
+    this.isScrolled = window.scrollY > 0;
+  }
+
+  @HostListener('document:click', ['$event'])
+  onClick(event: Event) {
+    if (!(event.target as Element).closest('.menu') &&
+      !(event.target as Element).closest('.menu-icon')) {
+      this.isMenuOpen = false;
     }
-  });
-});
+  }
+}

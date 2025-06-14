@@ -1,21 +1,19 @@
 <div class="wrapper">
   <header>
-    <nav>
-      <div class="menu-icon">
-        <i class="fa fa-bars fa-2x"></i>
-      </div>
+    <nav [class.black]="isScrolled">
       <div class="logo">
         YANTRA
       </div>
-      <div class="menu">
-        <ul>
-          <li><a href="#">Home</a></li>
-          <li><a href="#">Menu</a></li>
-          <li><a href="#">Contact Us</a></li>
-          <li><a href="#">Help Center</a></li>
-          <li><a href="#">About</a></li>
-        </ul>
+      <div class="menu-icon" (click)="toggleMenu($event)">
+        <i class="fa fa-bars fa-2x"></i>
       </div>
+      <ul [class.showing]="isMenuOpen">
+        <li><a routerLink="/" (click)="closeMenu()">Home</a></li>
+        <li><a routerLink="/menu" (click)="closeMenu()">Menu</a></li>
+        <li><a href="#contact-us" (click)="closeMenu()">Contact Us</a></li>
+        <li><a routerLink="/help-center" (click)="closeMenu()">Help Center</a></li>
+        <li><a routerLink="/about-us" (click)="closeMenu()">About</a></li>
+      </ul>
     </nav>
   </header>
 </div>

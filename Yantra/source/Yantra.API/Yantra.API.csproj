@@ -21,10 +21,4 @@
       <ProjectReference Include="..\Yantra.Notifications\Yantra.Notifications.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Content Include="..\..\.dockerignore">
-        <Link>.dockerignore</Link>
-      </Content>
-    </ItemGroup>
-
 </Project>

@@ -20,6 +20,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\Yantra.Mongo.Migration\Yantra.Mongo.Migration.csproj" />
       <ProjectReference Include="..\Yantra.Mongo\Yantra.Mongo.csproj" />
     </ItemGroup>
 

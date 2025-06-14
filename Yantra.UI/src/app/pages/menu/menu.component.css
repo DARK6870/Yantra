@@ -1,0 +1,139 @@
+.menu-section {
+  margin-bottom: 60px;
+  position: relative;
+}
+
+.menu-section .section-header {
+  margin-bottom: 30px;
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+}
+
+.section-header::after {
+  margin-left: 10px;
+  content: "";
+  height: 3px;
+  display: inline-block;
+  flex: 1 1 auto;
+  background-color: var(--yantra-text-gold);
+  border-radius: 5px;
+}
+
+.section-title {
+  font-size: 2rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+  color: var(--yantra-text-light);
+}
+
+.menu-category {
+  margin-bottom: 40px;
+}
+
+.menu-item {
+  display: flex;
+  margin-bottom: 40px;
+  background: var(--yantra-text-light);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.menu-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+}
+
+.menu-item .item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 5px;
+}
+
+.menu-item .item-header .item-title {
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.menu-item .item-header .item-price {
+  font-weight: 600;
+  color: var(--yantra-text-gold);
+}
+
+.menu-item .item-description {
+  font-size: 1rem;
+  color: #666;
+  line-height: 1.5;
+  font-style: italic;
+}
+
+.item-image {
+  width: 250px;
+  max-height: 200px;
+  overflow: hidden;
+}
+
+.item-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.menu-item:hover .item-image img {
+  transform: scale(1.05);
+}
+
+.item-content {
+  flex: 1;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.add-to-cart {
+  margin-top: auto;
+  align-self: flex-start;
+  background: var(--yantra-text-gold);
+  color: var(--yantra-text-light);
+  border: none;
+  padding: 10px 25px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  letter-spacing: 1px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.add-to-cart:hover {
+  background: var(--yantra-primary-accent);
+  transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+  .menu-item {
+    flex-direction: column;
+  }
+
+  .item-image {
+    width: 100%;
+    height: 300px;
+    max-height: 300px;
+  }
+
+  .add-to-cart {
+    align-self: stretch;
+    padding: 12px;
+  }
+
+  .section-title {
+  font-size: 1.5rem;
+  }
+}

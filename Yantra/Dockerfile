@@ -9,7 +9,6 @@ WORKDIR /src
 
 # Copy props files first
 COPY ["Directory.Build.props", "./"]
-COPY ["Directory.Packages.props", "./"]
 COPY ["Yantra.sln", "./"]
 
 # Copy project files first

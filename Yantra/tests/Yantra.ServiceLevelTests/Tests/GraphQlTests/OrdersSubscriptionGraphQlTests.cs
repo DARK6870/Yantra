@@ -33,7 +33,8 @@ public class OrdersSubscriptionGraphQlTests(YantraWebApplicationFactory factory)
     [Fact(DisplayName = "Subscribe on Order Updates; Should return updates after new order creation")]
     public async Task SubscribeOnOrderUpdates_ShouldReturnUpdatesAfterNewOrderCreation()
     {
-        // Arrange
+        // ArrangeERROR: failed to solve: process "/bin/sh -c dotnet build \"Yantra.API.csproj\" -c $BUILD_CONFIGURATION -o /app/build" did not complete successfully: exit code: 1
+
         using var scope = factory.Services.CreateScope();
         var mediator = scope.ServiceProvider.GetRequiredService<IMediator>();
         
